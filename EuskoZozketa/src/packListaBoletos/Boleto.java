@@ -23,6 +23,13 @@ public class Boleto {
 		this.listaNumeros = pListaNumeros;
 	}//Boleto
 	
+	
+	
+	public String getNombre() {
+		return nombre;
+	}
+
+
 	public void rellenar(ListaNumeros pListaNumeros) {
 		Iterator<Integer> it = pListaNumeros.obtIterator();
 		

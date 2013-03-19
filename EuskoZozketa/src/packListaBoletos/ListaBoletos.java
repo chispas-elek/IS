@@ -3,6 +3,9 @@
 package packListaBoletos;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import net.sf.jga.algorithms.Filter;
+import net.sf.jga.algorithms.Sort;
 import packListaBoletos.Boleto;
 import packBombonera.Bombonera;
 import packBombonera.ListaNumeros;
@@ -51,6 +54,10 @@ public class ListaBoletos {
 	
 	//Voy a implementar de nuevo la misma clase pero utilizando JGA
 	public Iterator<Boleto> getPremiados2() {
-		
+		Bombonera lBombonera = Bombonera.getBombonera();
+		ListaNumeros numPremiados = lBombonera.realizarSorteo();
+		Iterator<Boleto> it = Filter.filter(this.listaBoletos, new ClasificarAcierto(numPremiados)).iterator();
+		Iterator<Boleto> result = Sort.sort(it, new OrdenarAcierto(numPremiados));
+		return result;
 	}
 }//ListaBoletos
