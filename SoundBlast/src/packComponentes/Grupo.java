@@ -1,6 +1,5 @@
 package packComponentes;
 
-import java.io.InputStreamReader;
 
 public class Grupo {
 	
@@ -60,23 +59,19 @@ public class Grupo {
 	}
 	
 	public void reemplazarIntegrante(Artista pViejo, Artista pNuevo) {
-		try {
-			if(componentes.estaArtista(pViejo)) {
-				componentesAntiguos.addArtista(pViejo);
-				this.eliminarComponente(pViejo);
-				this.addComponente(pNuevo);
-			}
-			else {
-				throw(new Exception()); 
-			}
+		
+		if(!this.getComponentes().estaArtista(pViejo)) {
+			System.out.println("El artista no existe");
 		}
-		catch {
-			System.out.println("No existe ese artista. Introduzca un nuevo artista a reemplazar.");
-			Artista pAr = new Artista(null, pViejo.getNombre(), pViejo.getTipo());
-			
-			
-			reemplazarIntegrante(null,pNuevo);
+		else {
+			componentesAntiguos.addArtista(pViejo);
+			this.eliminarComponente(pViejo);
+			this.addComponente(pNuevo);	
 		}
+	}
+	
+	public Disco buscarDisco(String pNombre) {
+		return discografia.buscarDisco(pNombre);
 	}
 	
 	
