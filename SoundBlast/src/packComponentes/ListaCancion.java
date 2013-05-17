@@ -1,9 +1,15 @@
 package packComponentes;
 
+import java.util.ArrayList;
+
 public class ListaCancion {
 
+	//Variables
+	private ArrayList<Cancion> lista;
+	
+	//Methods
 	public ListaCancion() {
-		// TODO Auto-generated constructor stub
+		this.lista = new ArrayList<Cancion>();
 	}
 
 }
