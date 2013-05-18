@@ -3,6 +3,7 @@ package packMae;
 import packComponentes.Artista;
 import packComponentes.Disco;
 import packComponentes.EventoMusical;
+import packComponentes.Genero;
 import packComponentes.Grupo;
 import packComponentes.ListaArtista;
 import packComponentes.ListaDisco;
@@ -14,10 +15,12 @@ public class CatalogoGrupoArtista {
 	//Variables
 	private static CatalogoGrupoArtista mCatalogoGrupoArtista;
 	private ListaGrupo lista;
+	private ListaEventoMusical listaEM;
 
 	//Methods
 	private CatalogoGrupoArtista() {
 		this.lista = new ListaGrupo();
+		this.listaEM = new ListaEventoMusical();
 	}
 	
 	public static CatalogoGrupoArtista getCatalogoGrupoArtista() {
@@ -56,28 +59,28 @@ public class CatalogoGrupoArtista {
 	public Disco buscarDisco(String pNombre, Grupo pGrupo) {
 		return this.buscarDisco(pNombre, pGrupo);
 	}
-	/*TODO*/
+	
 	public void anadirEvento(EventoMusical pEvento) {
-		
+		this.listaEM.anadirEvento(pEvento);
 	}
-	/*TODO*/
+	
 	public void eliminarEvento(EventoMusical pEvento) {
-		
+		this.listaEM.eliminarEvento(pEvento);
 	}
-	/*TODO*/
+	
 	public EventoMusical buscarEvento(int pId) {
-		
+		return this.listaEM.buscarEvento(pId);
 	}
-	/*TODO*/
+	
 	public ListaEventoMusical buscarEventos(Grupo pGrupo) {
-		
+		return this.buscarEventos(pGrupo);
 	}
-	/*TODO*/
+	
 	public ListaEventoMusical buscarFestivalesPorGenero(Genero pGenero) {
-		
+		return this.listaEM.buscarFestivalesPorGenero(pGenero);
 	}
-	/*TODO*/
+	
 	public float obtenerBeneficio() {
-		
+		return this.listaEM.obtenerBeneficio();
 	}	
 }

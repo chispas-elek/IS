@@ -19,11 +19,21 @@ public class ListaEventoMusical {
 	}
 	
 	public void anadirEvento(EventoMusical pEvento) {
-		
+		if(this.buscarEvento(pEvento.getId()) != null) {
+			System.out.println("El evento ya existe");
+		}
+		else {
+			this.lista.add(pEvento);
+		}
 	}
 	
 	public void eliminarEvento(EventoMusical pEvento) {
-		
+		if(this.buscarEvento(pEvento.getId()) == null) {
+			System.out.println("El evento no existe");
+		}
+		else {
+			this.lista.remove(pEvento);
+		}
 	}
 	
 	public EventoMusical buscarEvento(int pId) {
