@@ -2,9 +2,11 @@ package packMae;
 
 import packComponentes.Artista;
 import packComponentes.Disco;
+import packComponentes.EventoMusical;
 import packComponentes.Grupo;
 import packComponentes.ListaArtista;
 import packComponentes.ListaDisco;
+import packComponentes.ListaEventoMusical;
 import packComponentes.ListaGrupo;
 
 public class CatalogoGrupoArtista {
@@ -54,9 +56,28 @@ public class CatalogoGrupoArtista {
 	public Disco buscarDisco(String pNombre, Grupo pGrupo) {
 		return this.buscarDisco(pNombre, pGrupo);
 	}
-	
-	
-	
-	
-	
+	/*TODO*/
+	public void anadirEvento(EventoMusical pEvento) {
+		
+	}
+	/*TODO*/
+	public void eliminarEvento(EventoMusical pEvento) {
+		
+	}
+	/*TODO*/
+	public EventoMusical buscarEvento(int pId) {
+		
+	}
+	/*TODO*/
+	public ListaEventoMusical buscarEventos(Grupo pGrupo) {
+		
+	}
+	/*TODO*/
+	public ListaEventoMusical buscarFestivalesPorGenero(Genero pGenero) {
+		
+	}
+	/*TODO*/
+	public float obtenerBeneficio() {
+		
+	}	
 }
