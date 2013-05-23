@@ -82,5 +82,13 @@ public class CatalogoGrupoArtista {
 	
 	public float obtenerBeneficio() {
 		return this.listaEM.obtenerBeneficio();
-	}	
+	}
+	
+	public ListaGrupo getGrupos() {
+		return this.lista;
+	}
+	
+	public ListaEventoMusical getEventos() {
+		return this.listaEM;
+	}
 }

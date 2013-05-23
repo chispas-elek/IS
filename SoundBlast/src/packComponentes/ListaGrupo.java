@@ -47,5 +47,9 @@ public class ListaGrupo {
 	public Disco buscarDisco(String pNombre, Grupo pGrupo) {
 		return this.getGrupo(pGrupo.getNombre()).buscarDisco(pNombre);
 	}
+	
+	public ArrayList<Grupo> getLista() {
+		return this.lista;
+	}
 
 }
