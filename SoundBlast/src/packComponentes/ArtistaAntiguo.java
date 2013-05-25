@@ -8,8 +8,8 @@ public class ArtistaAntiguo extends Artista {
 	private Date fechaFin;
 
 	//Methods
-	public ArtistaAntiguo(String pCodArtista, String pNombre, String pTipo, Date PFecha) {
-		super(pCodArtista, pNombre, pTipo, PFecha);
+	public ArtistaAntiguo(Artista pArtista) {
+		super(pArtista.getCodigo(), pArtista.getNombre(), pArtista.getTipo(), pArtista.getFInicio());
 		this.fechaFin = new Date();
 	}
 	

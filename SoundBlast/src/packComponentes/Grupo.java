@@ -18,7 +18,7 @@ public class Grupo {
 		this.discografia = pDiscografia;
 	}
 	
-	public void addComponente(Artista pComponente) {
+	public void addIntegrante(Artista pComponente) {
 		componentes.addArtista(pComponente);
 	}
 	
@@ -64,15 +64,17 @@ public class Grupo {
 			System.out.println("El artista no existe");
 		}
 		else {
-			componentesAntiguos.addArtista(pViejo);
+			ArtistaAntiguo pArt = new ArtistaAntiguo(pViejo);
+			componentesAntiguos.addArtista(pArt);
 			this.eliminarComponente(pViejo);
-			this.addComponente(pNuevo);	
+			this.addIntegrante(pNuevo);	
 		}
 	}
 	
 	public Disco buscarDisco(String pNombre) {
 		return discografia.buscarDisco(pNombre);
 	}
+	
 	
 	
 	

@@ -17,6 +17,10 @@ public class ListaDisco {
 		this.lista = new ArrayList<Disco>();
 	}
 	
+	public ArrayList<Disco> getDiscos() {
+		return this.lista;
+	}
+	
 	private Iterator<Disco> obtIterator() {
 		return this.lista.iterator();
 	}

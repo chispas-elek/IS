@@ -18,6 +18,10 @@ public class ListaArtista {
 		this.listaArtistas = new ArrayList<Artista>();
 	}
 	
+	public ArrayList<Artista> getLista() {
+		return this.listaArtistas;
+	}
+	
 	private Iterator<Artista> obtIterator() {
 		return this.listaArtistas.iterator();
 	}

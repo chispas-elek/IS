@@ -51,5 +51,27 @@ public class ListaGrupo {
 	public ArrayList<Grupo> getLista() {
 		return this.lista;
 	}
+	
+	public ArrayList<String> extraerNombres() {
+		ArrayList<String> data = new ArrayList<String>();
+		Iterator<Grupo> it = this.obtIterator();
+		Grupo gr = null;
+		while(it.hasNext()) {
+			gr = it.next();
+			data.add(gr.getNombre());
+		}
+		return data;
+	}
+	
+	public void reemplazarIntegrante(Artista pArtistaN, Artista pArtistaV, Grupo pGrupo) {
+		this.getGrupo(pGrupo.getNombre()).reemplazarIntegrante(pArtistaV, pArtistaN);
+	}
 
+	public boolean existeGrupo(Grupo pGrupo) {
+		boolean result = false;
+		if(this.getGrupo(pGrupo.getNombre()) != null) {
+			result = true;
+		}
+		return result;
+	}
 }

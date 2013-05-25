@@ -10,7 +10,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.BoxLayout;
-import net.miginfocom.swing.MigLayout;
 import java.awt.CardLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -23,12 +22,15 @@ import packComponentes.ListaDisco;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
 public class anadirGrupo extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
+	private JTextField txtTname;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -69,16 +71,24 @@ public class anadirGrupo extends JDialog {
 						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
 							.addComponent(lblNewLabel))
-						.addContainerGap(365, Short.MAX_VALUE))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+							.addComponent(getTxtTname(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(getTextField(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addContainerGap(237, Short.MAX_VALUE))
 			);
 			gl_panel.setVerticalGroup(
 				gl_panel.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_panel.createSequentialGroup()
 						.addGap(31)
-						.addComponent(lblNewLabel)
+						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblNewLabel)
+							.addComponent(getTxtTname(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(149, Short.MAX_VALUE))
+						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+							.addComponent(getTextField(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addContainerGap(139, Short.MAX_VALUE))
 			);
 			panel.setLayout(gl_panel);
 		}
@@ -90,8 +100,9 @@ public class anadirGrupo extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().addGrupo(anadirGrupo.this.lblNewLabel.getText(), anadirGrupo.this.lblNewLabel_1.getText(), new ListaArtista(), new ListaArtista(), new ListaDisco());
-						anadirGrupo.this.setVisible(false);
+						packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().addGrupo(anadirGrupo.this.txtTname.getText(), anadirGrupo.this.textField.getText(), new ListaArtista(), new ListaArtista(), new ListaDisco());
+						anadirGrupo.this.dispose();
+						new Index().setVisible(true);
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -105,5 +116,18 @@ public class anadirGrupo extends JDialog {
 			}
 		}
 	}
-
+	private JTextField getTxtTname() {
+		if (txtTname == null) {
+			txtTname = new JTextField();
+			txtTname.setColumns(10);
+		}
+		return txtTname;
+	}
+	private JTextField getTextField() {
+		if (textField == null) {
+			textField = new JTextField();
+			textField.setColumns(10);
+		}
+		return textField;
+	}
 }

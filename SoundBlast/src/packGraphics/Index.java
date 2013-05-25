@@ -20,10 +20,13 @@ import packComponentes.ListaGrupo;
 import packMae.CatalogoGrupoArtista;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Index extends JDialog {
 
@@ -32,6 +35,8 @@ public class Index extends JDialog {
 	private JList list_1;
 	private JButton bAddGroup;
 	private JButton bAddEvent;
+	private JButton btnSeeGroup;
+	private JButton btnSeeEvent;
 
 	/**
 	 * Launch the application.
@@ -56,16 +61,19 @@ public class Index extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
+			JButton bEvents = new JButton("Events");
+			JButton bBuyTicket = new JButton("Buy ticket");
 			JPanel panel = new JPanel();
 			contentPanel.add(panel, BorderLayout.NORTH);
 			{
-				ArrayList<Grupo> grupos = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupos().getLista();
+				ArrayList<String> grupos = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupos().extraerNombres();
 				list = new JList(grupos.toArray());
+				list.addListSelectionListener(new ListSelectionListener() {
+					public void valueChanged(ListSelectionEvent arg0) {
+						Index.this.btnSeeGroup.setEnabled(true);
+					}
+				});
 			}
-			JButton bEvents = new JButton("Events");
-			JButton bBuyTicket = new JButton("Buy ticket");
-			JButton bSeeGroup = new JButton("See group");
-			JButton bSeeEvent = new JButton("See event");
 			GroupLayout gl_panel = new GroupLayout(panel);
 			gl_panel.setHorizontalGroup(
 				gl_panel.createParallelGroup(Alignment.TRAILING)
@@ -77,9 +85,9 @@ public class Index extends JDialog {
 							.addComponent(getBAddEvent())
 							.addComponent(bEvents)
 							.addComponent(bBuyTicket)
-							.addComponent(bSeeGroup)
-							.addComponent(bSeeEvent))
-						.addPreferredGap(ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+							.addComponent(getBtnSeeGroup())
+							.addComponent(getBtnSeeEvent()))
+						.addPreferredGap(ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
 						.addComponent(list, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
 			);
 			gl_panel.setVerticalGroup(
@@ -98,10 +106,10 @@ public class Index extends JDialog {
 								.addComponent(bEvents)
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(bBuyTicket)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(bSeeGroup)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(bSeeEvent)))
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addComponent(getBtnSeeGroup())
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addComponent(getBtnSeeEvent())))
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 			);
 			panel.setLayout(gl_panel);
@@ -126,6 +134,11 @@ public class Index extends JDialog {
 	private JList getList_1() {
 		if (list_1 == null) {
 			list_1 = new JList();
+			list_1.addListSelectionListener(new ListSelectionListener() {
+				public void valueChanged(ListSelectionEvent arg0) {
+					Index.this.btnSeeEvent.setEnabled(true);
+				}
+			});
 		}
 		return list_1;
 	}
@@ -135,7 +148,7 @@ public class Index extends JDialog {
 			bAddGroup.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					new anadirGrupo().setVisible(true);
-					Index.this.setModal(false);
+					Index.this.dispose();
 					
 				}
 			});
@@ -148,4 +161,27 @@ public class Index extends JDialog {
 		}
 		return bAddEvent;
 	}
+	private JButton getBtnSeeGroup() {
+		if (btnSeeGroup == null) {
+			btnSeeGroup = new JButton("See group");
+			btnSeeGroup.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					new ModifGrupo().setVisible(true);
+					Index.this.dispose();
+				}
+			});
+			
+			btnSeeGroup.setEnabled(false);
+		}
+		return btnSeeGroup;
+	}
+	private JButton getBtnSeeEvent() {
+		if (btnSeeEvent == null) {
+			btnSeeEvent = new JButton("See event");
+			btnSeeEvent.setEnabled(false);
+		}
+		return btnSeeEvent;
+	}
 }
+
+

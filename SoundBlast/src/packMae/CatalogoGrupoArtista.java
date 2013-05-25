@@ -49,11 +49,11 @@ public class CatalogoGrupoArtista {
 	}
 	
 	public void anadirIntegrante(Artista pArtista, Grupo pGrupo) {
-		this.getGrupo(pGrupo.getNombre()).addComponente(pArtista);
+		this.getGrupo(pGrupo.getNombre()).addIntegrante(pArtista);
 	}
 	
 	public void reemplazarIntegrante(Artista pArtistaN, Artista pArtistaV, Grupo pGrupo) {
-		this.getGrupo(pGrupo.getNombre()).reemplazarIntegrante(pArtistaV, pArtistaN);
+		this.lista.reemplazarIntegrante(pArtistaN, pArtistaV, pGrupo);
 	}
 	
 	public Disco buscarDisco(String pNombre, Grupo pGrupo) {
