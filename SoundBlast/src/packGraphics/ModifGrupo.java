@@ -193,7 +193,7 @@ public class ModifGrupo extends JDialog {
 	}
 	private JList getList_1() {
 		if (list_1 == null) {
-			ArrayList<Artista> artistasA = grupo.getComponentesAntiguos().getLista();
+			ArrayList<Artista> artistasA = grupo.getComponentesAnteriores().getLista();
 			list_1 = new JList(artistasA.toArray()); 
 		}
 		return list_1;

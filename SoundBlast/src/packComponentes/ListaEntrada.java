@@ -18,7 +18,7 @@ public class ListaEntrada {
 		this.lista.add(entrada);
 	}
 	
-	private Iterator<Entrada> obtIterator() {
+	private Iterator<Entrada> obIterator() {
 		return this.lista.iterator();
 	}
 	
@@ -29,7 +29,7 @@ public class ListaEntrada {
 	public Entrada buscarEntrada(int pId) {
 		Entrada entrada = null;
 		boolean found = false;
-		Iterator<Entrada> it = this.obtIterator();
+		Iterator<Entrada> it = this.obIterator();
 		while(it.hasNext() && !found) {
 			entrada = it.next();
 			if(entrada.getIdEntrada() == pId) {
@@ -53,7 +53,7 @@ public class ListaEntrada {
 	public float calcularBeneficio() {
 		float benef = 0;
 		Entrada entrada;
-		Iterator<Entrada> it = this.obtIterator();
+		Iterator<Entrada> it = this.obIterator();
 		while(it.hasNext()) {
 			entrada = it.next();
 			benef = benef + entrada.getPrecio();

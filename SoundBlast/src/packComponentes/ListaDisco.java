@@ -8,10 +8,6 @@ public class ListaDisco {
 
 	//Variables
 	private ArrayList<Disco> lista;
-
-	public ListaDisco(ArrayList<Disco> pLista) {
-		this.lista = pLista;
-	}
 	
 	public ListaDisco() {
 		this.lista = new ArrayList<Disco>();
@@ -21,7 +17,7 @@ public class ListaDisco {
 		return this.lista;
 	}
 	
-	private Iterator<Disco> obtIterator() {
+	private Iterator<Disco> obIterator() {
 		return this.lista.iterator();
 	}
 	
@@ -31,7 +27,7 @@ public class ListaDisco {
 		this.lista.add(disc);
 	}
 	
-	public void eliminarDisco(Disco pDisco) {
+	public void elimDisco(Disco pDisco) {
 		try {
 			if(this.buscarDisco(pDisco.getNombreDisco()) != null) {
 				this.lista.remove(pDisco);
@@ -46,7 +42,7 @@ public class ListaDisco {
 	}
 	
 	public Disco buscarDisco(String pNombre) {
-		Iterator<Disco> it = this.obtIterator();
+		Iterator<Disco> it = this.obIterator();
 		Disco disc = null;
 		boolean found = false;
 		while(it.hasNext() && !found) {

@@ -1,11 +1,13 @@
 package packComponentes;
 
+import java.util.Date;
+
 
 public class Grupo {
 	
 	//Variables
 	private String nombre, logo;
-	private ListaArtista componentes, componentesAntiguos;
+	private ListaArtista componentes, componentesAnteriores;
 	private ListaDisco discografia;
 	
 	
@@ -14,11 +16,11 @@ public class Grupo {
 		this.nombre = pNombre;
 		this.logo = pLogo;
 		this.componentes = pComponentes;
-		this.componentesAntiguos = pComponentesAntiguos;
+		this.componentesAnteriores = pComponentesAntiguos;
 		this.discografia = pDiscografia;
 	}
 	
-	public void addIntegrante(Artista pComponente) {
+	public void anadirIntegrante(Artista pComponente) {
 		componentes.addArtista(pComponente);
 	}
 	
@@ -42,8 +44,8 @@ public class Grupo {
 		return componentes;
 	}
 
-	public ListaArtista getComponentesAntiguos() {
-		return componentesAntiguos;
+	public ListaArtista getComponentesAnteriores() {
+		return componentesAnteriores;
 	}
 
 	public ListaDisco getDiscografia() {
@@ -65,9 +67,9 @@ public class Grupo {
 		}
 		else {
 			ArtistaAntiguo pArt = new ArtistaAntiguo(pViejo);
-			componentesAntiguos.addArtista(pArt);
+			componentesAnteriores.addArtista(pArt);
 			this.eliminarComponente(pViejo);
-			this.addIntegrante(pNuevo);	
+			this.anadirIntegrante(pNuevo);	
 		}
 	}
 	
@@ -75,7 +77,9 @@ public class Grupo {
 		return discografia.buscarDisco(pNombre);
 	}
 	
-	
+	public void anadirDisco(String pNom, Date pAno, Genero pGen, int pDur) {
+		this.discografia.addDisco(pNom, pAno, pGen, pDur);
+	}
 	
 	
 	

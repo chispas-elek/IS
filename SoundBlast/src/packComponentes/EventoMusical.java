@@ -54,7 +54,7 @@ public abstract class EventoMusical {
 		return this.precioEntrada;
 	}
 
-	public float getPrecioVip() {
+	public float getPrecioEntradaVip() {
 		return this.precioVip;
 	}
 

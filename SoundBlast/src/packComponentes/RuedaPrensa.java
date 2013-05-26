@@ -7,8 +7,8 @@ public class RuedaPrensa extends EventoMusical {
 	//Variables
 	private String descripcion;
 
-	public RuedaPrensa(int pId, int pMaxEntradas, String pNombre, String pLugar, Date pFecha, Date pHora, float pPrecioEntrada, float pPrecioVip, Genero pGenero, ListaGrupo pGruposParticipantes, ListaEntrada pListaEntradas, String pDescripcion) {
-		super(pId, pMaxEntradas, pNombre, pLugar, pFecha, pHora, pPrecioEntrada, pPrecioVip, pGenero, pGruposParticipantes, pListaEntradas);
+	public RuedaPrensa(int pId, String pNombre, String pLugar, Date pFecha, Date pHora, Genero pGenero, ListaGrupo pGruposParticipantes, String pDescripcion) {
+		super(pId, 0, pNombre, pLugar, pFecha, pHora, 0, 0, pGenero, pGruposParticipantes, null);
 		this.descripcion = pDescripcion;
 	}
 	

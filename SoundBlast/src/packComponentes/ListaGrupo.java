@@ -1,6 +1,8 @@
 package packComponentes;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 
 public class ListaGrupo {
@@ -18,12 +20,12 @@ public class ListaGrupo {
 		this.lista.add(grupo);
 	}
 	
-	private Iterator<Grupo> obtIterator() {
+	private Iterator<Grupo> obIterator() {
 		return this.lista.iterator();
 	}
 	
 	public Grupo getGrupo(String pNombre) {
-		Iterator<Grupo> it = this.obtIterator();
+		Iterator<Grupo> it = this.obIterator();
 		Grupo gr = null;
 		boolean found = false;
 		while(it.hasNext() && !found) {
@@ -52,9 +54,14 @@ public class ListaGrupo {
 		return this.lista;
 	}
 	
+	public void anadirIntegrante(String pNom, String pTipo, Grupo pGrupo) {
+		Artista pComponente = new Artista(Calendar.getInstance().getTime().toString(),pNom,pTipo, new Date());
+		this.getGrupo(pGrupo.getNombre()).anadirIntegrante(pComponente);
+	}
+	
 	public ArrayList<String> extraerNombres() {
 		ArrayList<String> data = new ArrayList<String>();
-		Iterator<Grupo> it = this.obtIterator();
+		Iterator<Grupo> it = this.obIterator();
 		Grupo gr = null;
 		while(it.hasNext()) {
 			gr = it.next();
@@ -67,11 +74,4 @@ public class ListaGrupo {
 		this.getGrupo(pGrupo.getNombre()).reemplazarIntegrante(pArtistaV, pArtistaN);
 	}
 
-	public boolean existeGrupo(Grupo pGrupo) {
-		boolean result = false;
-		if(this.getGrupo(pGrupo.getNombre()) != null) {
-			result = true;
-		}
-		return result;
-	}
 }

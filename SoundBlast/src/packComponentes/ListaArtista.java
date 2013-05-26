@@ -1,6 +1,7 @@
 package packComponentes;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -22,20 +23,14 @@ public class ListaArtista {
 		return this.listaArtistas;
 	}
 	
-	private Iterator<Artista> obtIterator() {
+	private Iterator<Artista> obIterator() {
 		return this.listaArtistas.iterator();
-	}
-	
-	private String generateCode() {
-		Long t = System.currentTimeMillis();
-		String pData = t.toString();
-		return pData;
 	}
 	
 	public Artista getSolista() {
 		Artista pAr = null;
 		boolean found = false;
-		Iterator<Artista> it = this.obtIterator();
+		Iterator<Artista> it = this.obIterator();
 		while(it.hasNext() && !found) {
 			pAr = it.next();
 			if(pAr.getTipo() == "solista") {
@@ -49,9 +44,7 @@ public class ListaArtista {
 	}
 	
 	public void addArtista(String pNombre, String pTipo) {
-		Date date = new Date();
-		Artista pAr = new Artista(this.generateCode(), pNombre, pTipo, date);
-		this.listaArtistas.add(pAr);
+		this.listaArtistas.add(new Artista(Calendar.getInstance().getTime().toString(), pNombre, pTipo, new Date()));
 	}
 	
 	public void addArtista(Artista pArtista) {
@@ -61,7 +54,7 @@ public class ListaArtista {
 	public boolean estaArtista(Artista pArtista) {
 		Artista pAr = null;
 		boolean found = false;
-		Iterator<Artista> it = this.obtIterator();
+		Iterator<Artista> it = this.obIterator();
 		while(it.hasNext() && !found) {
 			pAr = it.next();
 			if(pAr == pArtista) {

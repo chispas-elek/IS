@@ -31,7 +31,7 @@ import java.awt.event.MouseEvent;
 public class Index extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JList<Grupo> list;
+	private JList<String> list;
 	private JList list_1;
 	private JButton bAddGroup;
 	private JButton bAddEvent;
@@ -40,7 +40,7 @@ public class Index extends JDialog {
 
 	/**
 	 * Launch the application.
-	 */
+	 
 	public static void main(String[] args) {
 		try {
 			Index dialog = new Index();
@@ -50,7 +50,7 @@ public class Index extends JDialog {
 			e.printStackTrace();
 		}
 	}
-
+*/
 	/**
 	 * Create the dialog.
 	 */
@@ -66,8 +66,8 @@ public class Index extends JDialog {
 			JPanel panel = new JPanel();
 			contentPanel.add(panel, BorderLayout.NORTH);
 			{
-				ArrayList<String> grupos = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupos().extraerNombres();
-				list = new JList(grupos.toArray());
+				ArrayList<String> noms = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupos().extraerNombres();
+				list = new JList(noms.toArray());
 				list.addListSelectionListener(new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent arg0) {
 						Index.this.btnSeeGroup.setEnabled(true);
@@ -166,9 +166,8 @@ public class Index extends JDialog {
 			btnSeeGroup = new JButton("See group");
 			btnSeeGroup.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					
-					//new ModifGrupo(Index.this.list.getSelectedValue().getNombre()).setVisible(true);
-					System.out.println(Index.this.list.getSelectedValue().getNombre());
+					System.out.println(Index.this.list.getSelectedValue());
+					new ModifGrupo(Index.this.list.getSelectedValue()).setVisible(true);
 					Index.this.dispose();
 				}
 			});

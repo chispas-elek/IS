@@ -46,12 +46,4 @@ public class Disco {
 		return this.gen;
 	}
 	
-	public void setGenero(Genero pGen) {
-		this.gen = pGen;
-	}
-	
-	
-	
-	
-
 }

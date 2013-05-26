@@ -1,5 +1,7 @@
 package packMae;
 
+import java.util.Date;
+
 import packComponentes.Artista;
 import packComponentes.Disco;
 import packComponentes.EventoMusical;
@@ -15,12 +17,10 @@ public class CatalogoGrupoArtista {
 	//Variables
 	private static CatalogoGrupoArtista mCatalogoGrupoArtista;
 	private ListaGrupo lista;
-	private ListaEventoMusical listaEM;
 
 	//Methods
 	private CatalogoGrupoArtista() {
 		this.lista = new ListaGrupo();
-		this.listaEM = new ListaEventoMusical();
 	}
 	
 	public static CatalogoGrupoArtista getCatalogoGrupoArtista() {
@@ -49,7 +49,7 @@ public class CatalogoGrupoArtista {
 	}
 	
 	public void anadirIntegrante(Artista pArtista, Grupo pGrupo) {
-		this.getGrupo(pGrupo.getNombre()).addIntegrante(pArtista);
+		this.getGrupo(pGrupo.getNombre()).anadirIntegrante(pArtista);
 	}
 	
 	public void reemplazarIntegrante(Artista pArtistaN, Artista pArtistaV, Grupo pGrupo) {
@@ -57,38 +57,43 @@ public class CatalogoGrupoArtista {
 	}
 	
 	public Disco buscarDisco(String pNombre, Grupo pGrupo) {
-		return this.buscarDisco(pNombre, pGrupo);
+		return this.getGrupo(pGrupo.getNombre()).buscarDisco(pNombre);
 	}
 	
 	public void anadirEvento(EventoMusical pEvento) {
-		this.listaEM.anadirEvento(pEvento);
+		CatalogoEventoMusical.getCatalogoEventoMusical().anadirEvento(pEvento);
 	}
 	
 	public void eliminarEvento(EventoMusical pEvento) {
-		this.listaEM.eliminarEvento(pEvento);
+		CatalogoEventoMusical.getCatalogoEventoMusical().eliminarEvento(pEvento);
 	}
 	
 	public EventoMusical buscarEvento(int pId) {
-		return this.listaEM.buscarEvento(pId);
+		return CatalogoEventoMusical.getCatalogoEventoMusical().buscarEvento(pId);
 	}
 	
 	public ListaEventoMusical buscarEventos(Grupo pGrupo) {
-		return this.buscarEventos(pGrupo);
+		return CatalogoEventoMusical.getCatalogoEventoMusical().buscarEvento(pGrupo);
 	}
 	
 	public ListaEventoMusical buscarFestivalesPorGenero(Genero pGenero) {
-		return this.listaEM.buscarFestivalesPorGenero(pGenero);
+		return CatalogoEventoMusical.getCatalogoEventoMusical().buscarFestivalesPorGenero(pGenero);
 	}
 	
 	public float obtenerBeneficio() {
-		return this.listaEM.obtenerBeneficio();
+		return CatalogoEventoMusical.getCatalogoEventoMusical().obtenerBeneficio();
+	}
+	
+	public float obtenerBeneficio(EventoMusical pEvento) {
+		return CatalogoEventoMusical.getCatalogoEventoMusical().obtenerBeneficio(pEvento);
 	}
 	
 	public ListaGrupo getGrupos() {
 		return this.lista;
 	}
 	
-	public ListaEventoMusical getEventos() {
-		return this.listaEM;
+	public void anadirDisco(Grupo pGrupo, String pNom, Date pAno, Genero pGen, int pDur) {
+		this.getGrupo(pGrupo.getNombre()).anadirDisco(pNom, pAno, pGen, pDur);
 	}
+	
 }

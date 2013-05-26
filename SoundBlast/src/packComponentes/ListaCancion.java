@@ -13,7 +13,7 @@ public class ListaCancion {
 		this.lista = new ArrayList<Cancion>();
 	}
 	
-	private Iterator<Cancion> obtIterator() {
+	private Iterator<Cancion> obIterator() {
 		return this.lista.iterator();
 	}
 	
@@ -26,7 +26,7 @@ public class ListaCancion {
 	}
 	
 	public Cancion buscarCancion(String pTitulo) {
-		Iterator<Cancion> it = this.obtIterator();
+		Iterator<Cancion> it = this.obIterator();
 		Cancion cancion = null;
 		boolean found = false;
 		while(it.hasNext() && !found) {

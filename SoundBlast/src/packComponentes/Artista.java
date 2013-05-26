@@ -3,6 +3,7 @@
 
 package packComponentes;
 
+
 import java.util.Date;
 
 public class Artista {
@@ -14,11 +15,11 @@ public class Artista {
 	//Methods
 	
 			//Constructor	
-	public Artista(String pCodArtista, String pNombre, String pTipo, Date pFecha) {
-		this.codArtista = pCodArtista;
+	public Artista(String pCod, String pNombre, String pTipo, Date pFInicio) {
+		this.codArtista = pCod;
 		this.nombre = pNombre;
 		this.tipo = pTipo;
-		this.fechaInicio = pFecha;
+		this.fechaInicio = pFInicio;
 	}
 	
 	public String getTipo() {
