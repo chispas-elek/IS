@@ -41,7 +41,7 @@ public class ModifGrupo extends JDialog {
 
 	/**
 	 * Launch the application.
-	 */
+	 
 	public static void main(String[] args) {
 		try {
 			ModifGrupo dialog = new ModifGrupo();
@@ -51,11 +51,12 @@ public class ModifGrupo extends JDialog {
 			e.printStackTrace();
 		}
 	}
-
+*/
 	/**
 	 * Create the dialog.
 	 */
-	public ModifGrupo() {
+	public ModifGrupo(String pGrupo) {
+		grupo = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo(pGrupo);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

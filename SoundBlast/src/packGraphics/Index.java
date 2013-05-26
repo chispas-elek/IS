@@ -166,7 +166,9 @@ public class Index extends JDialog {
 			btnSeeGroup = new JButton("See group");
 			btnSeeGroup.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					new ModifGrupo().setVisible(true);
+					
+					//new ModifGrupo(Index.this.list.getSelectedValue().getNombre()).setVisible(true);
+					System.out.println(Index.this.list.getSelectedValue().getNombre());
 					Index.this.dispose();
 				}
 			});
