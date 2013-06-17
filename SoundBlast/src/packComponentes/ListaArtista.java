@@ -68,4 +68,15 @@ public class ListaArtista {
 		this.listaArtistas.remove(pArtista);
 	}
 	
+	public ArrayList<String> extraerNombres() {
+		ArrayList<String> data = new ArrayList<String>();
+		Iterator<Artista> it = this.obIterator();
+		Artista ar = null;
+		while(it.hasNext()) {
+			ar = it.next();
+			data.add(ar.getNombre());
+		}
+		return data;
+	}
+	
 }

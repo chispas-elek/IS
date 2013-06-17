@@ -37,5 +37,13 @@ public class Artista {
 	public Date getFInicio() {
 		return this.fechaInicio;
 	}
+	
+	public void setNombre(String pNombre) {
+		this.nombre = pNombre;
+	}
+	
+	public void setTipo(String pTipo) {
+		this.tipo = pTipo;
+	}
 
 }

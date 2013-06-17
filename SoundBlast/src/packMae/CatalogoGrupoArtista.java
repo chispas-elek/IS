@@ -96,4 +96,9 @@ public class CatalogoGrupoArtista {
 		this.getGrupo(pGrupo.getNombre()).anadirDisco(pNom, pAno, pGen, pDur);
 	}
 	
+	public void ordenar() {
+		/*TODO
+		 * 
+		 * Usar JGA con algoritmo Sort para ordenar las cosas*/
+	}
 }

@@ -1,6 +1,8 @@
 package packComponentes;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 
 public class Grupo {
@@ -81,7 +83,9 @@ public class Grupo {
 		this.discografia.addDisco(pNom, pAno, pGen, pDur);
 	}
 	
-	
+	public ArrayList<String> extraerNombres() {
+		return this.getComponentes().extraerNombres();
+	}
 	
 	
 	

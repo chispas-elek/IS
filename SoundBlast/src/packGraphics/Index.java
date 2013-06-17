@@ -27,16 +27,24 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.BoxLayout;
+import javax.swing.JTextArea;
+import javax.swing.JComboBox;
 
 public class Index extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JList<String> list;
-	private JList list_1;
+	private JList list;
+	private JTextArea textArea;
+	private JList lReprod;
+	private JComboBox order;
+	private JPanel operations;
+	private JButton bBuy;
+	private JButton bEventos;
+	private JButton bLetra;
 	private JButton bAddGroup;
-	private JButton bAddEvent;
-	private JButton btnSeeGroup;
-	private JButton btnSeeEvent;
+	private JButton bDelGrupor;
+	private JButton bEditGroup;
 
 	/**
 	 * Launch the application.
@@ -55,64 +63,36 @@ public class Index extends JDialog {
 	 * Create the dialog.
 	 */
 	public Index() {
+		setTitle("SoundBlast - Inicio");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
-			JButton bEvents = new JButton("Events");
-			JButton bBuyTicket = new JButton("Buy ticket");
+			JPanel artists = new JPanel();
+			contentPanel.add(artists);
+			artists.setLayout(new BorderLayout(0, 0));
+			artists.add(getList());
+			artists.add(getOrder(), BorderLayout.NORTH);
+		}
+		{
+			JPanel lyrics = new JPanel();
+			contentPanel.add(lyrics);
+			lyrics.setLayout(new BorderLayout(0, 0));
+			lyrics.add(getTextArea(), BorderLayout.NORTH);
+		}
+		{
 			JPanel panel = new JPanel();
-			contentPanel.add(panel, BorderLayout.NORTH);
+			contentPanel.add(panel, BorderLayout.EAST);
+			panel.setLayout(new BorderLayout(0, 0));
+			panel.add(getList_1_1());
+		}
+		contentPanel.add(getOperations(), BorderLayout.SOUTH);
+		{
 			{
 				ArrayList<String> noms = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupos().extraerNombres();
-				list = new JList(noms.toArray());
-				list.addListSelectionListener(new ListSelectionListener() {
-					public void valueChanged(ListSelectionEvent arg0) {
-						Index.this.btnSeeGroup.setEnabled(true);
-					}
-				});
 			}
-			GroupLayout gl_panel = new GroupLayout(panel);
-			gl_panel.setHorizontalGroup(
-				gl_panel.createParallelGroup(Alignment.TRAILING)
-					.addGroup(gl_panel.createSequentialGroup()
-						.addComponent(getList_1(), GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
-						.addGap(33)
-						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-							.addComponent(getBAddGroup())
-							.addComponent(getBAddEvent())
-							.addComponent(bEvents)
-							.addComponent(bBuyTicket)
-							.addComponent(getBtnSeeGroup())
-							.addComponent(getBtnSeeEvent()))
-						.addPreferredGap(ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-						.addComponent(list, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
-			);
-			gl_panel.setVerticalGroup(
-				gl_panel.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_panel.createSequentialGroup()
-						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(list, GroupLayout.PREFERRED_SIZE, 210, GroupLayout.PREFERRED_SIZE)
-								.addComponent(getList_1(), GroupLayout.PREFERRED_SIZE, 202, GroupLayout.PREFERRED_SIZE))
-							.addGroup(gl_panel.createSequentialGroup()
-								.addContainerGap()
-								.addComponent(getBAddGroup())
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(getBAddEvent())
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(bEvents)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(bBuyTicket)
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addComponent(getBtnSeeGroup())
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addComponent(getBtnSeeEvent())))
-						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-			);
-			panel.setLayout(gl_panel);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -131,58 +111,88 @@ public class Index extends JDialog {
 			}
 		}
 	}
-	private JList getList_1() {
-		if (list_1 == null) {
-			list_1 = new JList();
-			list_1.addListSelectionListener(new ListSelectionListener() {
-				public void valueChanged(ListSelectionEvent arg0) {
-					Index.this.btnSeeEvent.setEnabled(true);
-				}
-			});
+	private JList getList() {
+		if (list == null) {
+			ArrayList<String> noms = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupos().extraerNombres();
+			list = new JList(noms.toArray());
 		}
-		return list_1;
+		return list;
+	}
+	private JTextArea getTextArea() {
+		if (textArea == null) {
+			textArea = new JTextArea();
+		}
+		return textArea;
+	}
+	private JList getList_1_1() {
+		if (lReprod == null) {
+			lReprod = new JList();
+		}
+		return lReprod;
+	}
+	private JComboBox getOrder() {
+		if (order == null) {
+			order = new JComboBox();
+		}
+		return order;
+	}
+	private JPanel getOperations() {
+		if (operations == null) {
+			operations = new JPanel();
+			operations.add(getBBuy());
+			operations.add(getBEventos());
+			operations.add(getBLetra());
+			operations.add(getBAddGroup());
+			operations.add(getBDelGrupor());
+			operations.add(getBEditGroup());
+		}
+		return operations;
+	}
+	private JButton getBBuy() {
+		if (bBuy == null) {
+			bBuy = new JButton("Comprar entrada");
+		}
+		return bBuy;
+	}
+	private JButton getBEventos() {
+		if (bEventos == null) {
+			bEventos = new JButton("Ver Eventos");
+		}
+		return bEventos;
+	}
+	private JButton getBLetra() {
+		if (bLetra == null) {
+			bLetra = new JButton("Modificar letra");
+		}
+		return bLetra;
 	}
 	private JButton getBAddGroup() {
 		if (bAddGroup == null) {
-			bAddGroup = new JButton("Add group");
-			bAddGroup.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
+			bAddGroup = new JButton("Añadir grupo");
+			bAddGroup.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
 					new anadirGrupo().setVisible(true);
-					Index.this.dispose();
-					
-				}
-			});
-		}
-		return bAddGroup;
-	}
-	private JButton getBAddEvent() {
-		if (bAddEvent == null) {
-			bAddEvent = new JButton("Add event");
-		}
-		return bAddEvent;
-	}
-	private JButton getBtnSeeGroup() {
-		if (btnSeeGroup == null) {
-			btnSeeGroup = new JButton("See group");
-			btnSeeGroup.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					System.out.println(Index.this.list.getSelectedValue());
-					new ModifGrupo(Index.this.list.getSelectedValue()).setVisible(true);
 					Index.this.dispose();
 				}
 			});
 			
-			btnSeeGroup.setEnabled(false);
 		}
-		return btnSeeGroup;
+		return bAddGroup;
 	}
-	private JButton getBtnSeeEvent() {
-		if (btnSeeEvent == null) {
-			btnSeeEvent = new JButton("See event");
-			btnSeeEvent.setEnabled(false);
+	private JButton getBDelGrupor() {
+		if (bDelGrupor == null) {
+			bDelGrupor = new JButton("Eliminar grupo");
 		}
-		return btnSeeEvent;
+		return bDelGrupor;
 	}
+	private JButton getBEditGroup() {
+		if (bEditGroup == null) {
+			bEditGroup = new JButton("Editar grupo");
+		}
+		return bEditGroup;
+	}
+	
 }
 
 
