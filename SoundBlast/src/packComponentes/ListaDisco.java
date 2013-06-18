@@ -17,7 +17,7 @@ public class ListaDisco {
 		return this.lista;
 	}
 	
-	private Iterator<Disco> obIterator() {
+	public Iterator<Disco> obIterator() {
 		return this.lista.iterator();
 	}
 	

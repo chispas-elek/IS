@@ -23,7 +23,7 @@ public class ListaArtista {
 		return this.listaArtistas;
 	}
 	
-	private Iterator<Artista> obIterator() {
+	public Iterator<Artista> obIterator() {
 		return this.listaArtistas.iterator();
 	}
 	

@@ -37,6 +37,7 @@ public class anadirGrupo extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
+	private JLabel lblQuiDeberaPoner;
 	private JTextField txtTname;
 	private JTextField textField;
 	private JButton bAddMember;
@@ -71,15 +72,14 @@ public class anadirGrupo extends JDialog {
 			{
 				lblNewLabel = new JLabel("Nombre");
 				lblNewLabel.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseEntered(MouseEvent e) {
-						
-					}
+					
 				});
 			}
 			{
 				lblNewLabel_1 = new JLabel("Logo");
 			}
+			JLabel lblQuiDeberaPoner = new JLabel("Aqui debera poner el nombre del grupo");
+			lblQuiDeberaPoner.setVisible(false);
 			GroupLayout gl_panel = new GroupLayout(panel);
 			gl_panel.setHorizontalGroup(
 				gl_panel.createParallelGroup(Alignment.LEADING)
@@ -99,14 +99,20 @@ public class anadirGrupo extends JDialog {
 							.addGroup(gl_panel.createSequentialGroup()
 								.addGap(28)
 								.addComponent(getBAddMember())))
-						.addPreferredGap(ComponentPlacement.RELATED, 346, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
 						.addComponent(getList(), GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)
 						.addGap(22))
+					.addGroup(gl_panel.createSequentialGroup()
+						.addGap(30)
+						.addComponent(lblQuiDeberaPoner, GroupLayout.PREFERRED_SIZE, 293, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(168, Short.MAX_VALUE))
 			);
 			gl_panel.setVerticalGroup(
 				gl_panel.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_panel.createSequentialGroup()
-						.addGap(31)
+						.addGap(4)
+						.addComponent(lblQuiDeberaPoner)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
 						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 							.addComponent(getList(), GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)
 							.addGroup(gl_panel.createSequentialGroup()
@@ -120,7 +126,7 @@ public class anadirGrupo extends JDialog {
 									.addComponent(getTxtTname(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 								.addGap(16)
 								.addComponent(getBAddMember())))
-						.addContainerGap(235, Short.MAX_VALUE))
+						.addContainerGap(29, Short.MAX_VALUE))
 			);
 			panel.setLayout(gl_panel);
 		}
@@ -183,5 +189,13 @@ public class anadirGrupo extends JDialog {
 	
 	public static void addMem(Artista pArtista) {
 		gr.anadirIntegrante(pArtista);
+	}
+	
+	public void mouseEntered(MouseEvent e) {
+		anadirGrupo.this.lblQuiDeberaPoner.setVisible(true);
+	}
+	
+	public void mouseExited(MouseEvent e) {
+		anadirGrupo.this.lblQuiDeberaPoner.setVisible(false);
 	}
 }

@@ -20,7 +20,7 @@ public class ListaGrupo {
 		this.lista.add(grupo);
 	}
 	
-	private Iterator<Grupo> obIterator() {
+	public Iterator<Grupo> obIterator() {
 		return this.lista.iterator();
 	}
 	

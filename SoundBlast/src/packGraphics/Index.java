@@ -2,53 +2,34 @@ package packGraphics;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.ListModel;
 import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
-import java.util.ArrayList;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreeNode;
+import javax.swing.JTree;
 
-import javax.swing.JList;
-
+import packComponentes.Artista;
+import packComponentes.ArtistaAntiguo;
+import packComponentes.Disco;
 import packComponentes.Grupo;
-import packComponentes.ListaArtista;
-import packComponentes.ListaDisco;
-import packComponentes.ListaGrupo;
-import packMae.CatalogoGrupoArtista;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.BoxLayout;
-import javax.swing.JTextArea;
-import javax.swing.JComboBox;
 
 public class Index extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JList list;
-	private JTextArea textArea;
-	private JList lReprod;
-	private JComboBox order;
-	private JPanel operations;
-	private JButton bBuy;
-	private JButton bEventos;
-	private JButton bLetra;
-	private JButton bAddGroup;
-	private JButton bDelGrupor;
-	private JButton bEditGroup;
+	private DefaultMutableTreeNode root = new DefaultMutableTreeNode("SoundBlast");
+	private DefaultMutableTreeNode artistas = new DefaultMutableTreeNode("Artistas");
+	private DefaultMutableTreeNode eventos = new DefaultMutableTreeNode("Eventos");
+	private DefaultTreeModel model = new DefaultTreeModel(root);
 
 	/**
 	 * Launch the application.
-	 
+	 */
 	public static void main(String[] args) {
 		try {
 			Index dialog = new Index();
@@ -58,41 +39,33 @@ public class Index extends JDialog {
 			e.printStackTrace();
 		}
 	}
-*/
+
 	/**
 	 * Create the dialog.
 	 */
 	public Index() {
-		setTitle("SoundBlast - Inicio");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
-			JPanel artists = new JPanel();
-			contentPanel.add(artists);
-			artists.setLayout(new BorderLayout(0, 0));
-			artists.add(getList());
-			artists.add(getOrder(), BorderLayout.NORTH);
-		}
-		{
-			JPanel lyrics = new JPanel();
-			contentPanel.add(lyrics);
-			lyrics.setLayout(new BorderLayout(0, 0));
-			lyrics.add(getTextArea(), BorderLayout.NORTH);
+			JPanel panel = new JPanel();
+			contentPanel.add(panel, BorderLayout.WEST);
+			panel.setLayout(new BorderLayout(0, 0));
+			{
+				JTree tree = new JTree(root);
+				panel.add(tree, BorderLayout.CENTER);
+				DefaultTreeModel model = (DefaultTreeModel)tree.getModel();
+				root = (DefaultMutableTreeNode)model.getRoot();
+				arbol();
+				model.reload(root);
+			}
 		}
 		{
 			JPanel panel = new JPanel();
-			contentPanel.add(panel, BorderLayout.EAST);
+			contentPanel.add(panel, BorderLayout.CENTER);
 			panel.setLayout(new BorderLayout(0, 0));
-			panel.add(getList_1_1());
-		}
-		contentPanel.add(getOperations(), BorderLayout.SOUTH);
-		{
-			{
-				ArrayList<String> noms = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupos().extraerNombres();
-			}
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -111,88 +84,45 @@ public class Index extends JDialog {
 			}
 		}
 	}
-	private JList getList() {
-		if (list == null) {
-			ArrayList<String> noms = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupos().extraerNombres();
-			list = new JList(noms.toArray());
+	
+	public void rellenar() {
+		Iterator<Grupo> it = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupos().obIterator();
+		Grupo gr = null;
+		while(it.hasNext()) {
+			gr = it.next();
+			DefaultMutableTreeNode adder = new DefaultMutableTreeNode(gr.getNombre());
+			Iterator<Disco> it2 = gr.getDiscografia().obIterator();
+			Iterator<Artista> itArt = gr.getComponentes().obIterator();
+			Iterator<Artista> itAA = gr.getComponentesAnteriores().obIterator();
+			Disco disc = null;
+			Artista art = null;
+			artistas.add(adder);
+			while(itArt.hasNext()) {
+				art = itArt.next();
+				DefaultMutableTreeNode adding = new DefaultMutableTreeNode(art.getNombre());
+				adder.add(adding);
+			}
+			while(itAA.hasNext()) {
+				art = itAA.next();
+				DefaultMutableTreeNode adding = new DefaultMutableTreeNode(art.getNombre());
+				adder.add(adding);
+			}
+			while(it2.hasNext()) {
+				disc = it2.next();
+				DefaultMutableTreeNode adding = new DefaultMutableTreeNode(disc.getNombreDisco());
+				adder.add(adding);
+			}
 		}
-		return list;
 	}
-	private JTextArea getTextArea() {
-		if (textArea == null) {
-			textArea = new JTextArea();
-		}
-		return textArea;
-	}
-	private JList getList_1_1() {
-		if (lReprod == null) {
-			lReprod = new JList();
-		}
-		return lReprod;
-	}
-	private JComboBox getOrder() {
-		if (order == null) {
-			order = new JComboBox();
-		}
-		return order;
-	}
-	private JPanel getOperations() {
-		if (operations == null) {
-			operations = new JPanel();
-			operations.add(getBBuy());
-			operations.add(getBEventos());
-			operations.add(getBLetra());
-			operations.add(getBAddGroup());
-			operations.add(getBDelGrupor());
-			operations.add(getBEditGroup());
-		}
-		return operations;
-	}
-	private JButton getBBuy() {
-		if (bBuy == null) {
-			bBuy = new JButton("Comprar entrada");
-		}
-		return bBuy;
-	}
-	private JButton getBEventos() {
-		if (bEventos == null) {
-			bEventos = new JButton("Ver Eventos");
-		}
-		return bEventos;
-	}
-	private JButton getBLetra() {
-		if (bLetra == null) {
-			bLetra = new JButton("Modificar letra");
-		}
-		return bLetra;
-	}
-	private JButton getBAddGroup() {
-		if (bAddGroup == null) {
-			bAddGroup = new JButton("Añadir grupo");
-			bAddGroup.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					new anadirGrupo().setVisible(true);
-					Index.this.dispose();
-				}
-			});
-			
-		}
-		return bAddGroup;
-	}
-	private JButton getBDelGrupor() {
-		if (bDelGrupor == null) {
-			bDelGrupor = new JButton("Eliminar grupo");
-		}
-		return bDelGrupor;
-	}
-	private JButton getBEditGroup() {
-		if (bEditGroup == null) {
-			bEditGroup = new JButton("Editar grupo");
-		}
-		return bEditGroup;
+	public void eventos() {
+		
 	}
 	
+	public void arbol() {
+		root.add(artistas);
+		root.add(eventos);
+		this.rellenar();
+		this.eventos();
+	}
+
 }
-
-
