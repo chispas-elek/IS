@@ -20,7 +20,7 @@ public class ListaGrupo {
 		this.lista.add(grupo);
 	}
 	
-	public Iterator<Grupo> obIterator() {
+	private Iterator<Grupo> obIterator() {
 		return this.lista.iterator();
 	}
 	
@@ -57,17 +57,6 @@ public class ListaGrupo {
 	public void anadirIntegrante(String pNom, String pTipo, Grupo pGrupo) {
 		Artista pComponente = new Artista(Calendar.getInstance().getTime().toString(),pNom,pTipo, new Date());
 		this.getGrupo(pGrupo.getNombre()).anadirIntegrante(pComponente);
-	}
-	
-	public ArrayList<String> extraerNombres() {
-		ArrayList<String> data = new ArrayList<String>();
-		Iterator<Grupo> it = this.obIterator();
-		Grupo gr = null;
-		while(it.hasNext()) {
-			gr = it.next();
-			data.add(gr.getNombre());
-		}
-		return data;
 	}
 	
 	public void reemplazarIntegrante(Artista pArtistaN, Artista pArtistaV, Grupo pGrupo) {

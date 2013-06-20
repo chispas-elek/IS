@@ -82,14 +82,4 @@ public class Grupo {
 	public void anadirDisco(String pNom, Date pAno, Genero pGen, int pDur) {
 		this.discografia.addDisco(pNom, pAno, pGen, pDur);
 	}
-	
-	public ArrayList<String> extraerNombres() {
-		return this.getComponentes().extraerNombres();
-	}
-	
-	
-	
-	
-	
-
 }

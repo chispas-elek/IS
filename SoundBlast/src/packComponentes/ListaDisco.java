@@ -13,11 +13,7 @@ public class ListaDisco {
 		this.lista = new ArrayList<Disco>();
 	}
 	
-	public ArrayList<Disco> getDiscos() {
-		return this.lista;
-	}
-	
-	public Iterator<Disco> obIterator() {
+	private Iterator<Disco> obIterator() {
 		return this.lista.iterator();
 	}
 	
