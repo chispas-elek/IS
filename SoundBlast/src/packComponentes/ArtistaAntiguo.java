@@ -9,7 +9,7 @@ public class ArtistaAntiguo extends Artista {
 
 	//Methods
 	public ArtistaAntiguo(Artista pArtista) {
-		super(pArtista.getCodigo(), pArtista.getNombre(), pArtista.getTipo(), pArtista.getFInicio());
+		super(pArtista.getNombre(), pArtista.getTipo());
 		this.fechaFin = new Date();
 	}
 	

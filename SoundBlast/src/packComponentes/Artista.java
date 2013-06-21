@@ -9,17 +9,16 @@ import java.util.Date;
 public class Artista {
 	
 	//Variables
-	private String codArtista, nombre, tipo;
-	private Date fechaInicio;
+	private String codArtista = new Date().toString();
+	private String nombre, tipo;
+	private Date fechaInicio = new Date();
 	
 	//Methods
 	
 			//Constructor	
-	public Artista(String pCod, String pNombre, String pTipo, Date pFInicio) {
-		this.codArtista = pCod;
+	public Artista(String pNombre, String pTipo) {
 		this.nombre = pNombre;
 		this.tipo = pTipo;
-		this.fechaInicio = pFInicio;
 	}
 	
 	public String getTipo() {

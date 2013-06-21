@@ -55,7 +55,7 @@ public class ListaGrupo {
 	}
 	
 	public void anadirIntegrante(String pNom, String pTipo, Grupo pGrupo) {
-		Artista pComponente = new Artista(Calendar.getInstance().getTime().toString(),pNom,pTipo, new Date());
+		Artista pComponente = new Artista(pNom,pTipo);
 		this.getGrupo(pGrupo.getNombre()).anadirIntegrante(pComponente);
 	}
 	

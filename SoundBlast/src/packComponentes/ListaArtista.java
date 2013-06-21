@@ -40,7 +40,7 @@ public class ListaArtista {
 	}
 	
 	public void addArtista(String pNombre, String pTipo) {
-		this.listaArtistas.add(new Artista(Calendar.getInstance().getTime().toString(), pNombre, pTipo, new Date()));
+		this.listaArtistas.add(new Artista(pNombre, pTipo));
 	}
 	
 	public void addArtista(Artista pArtista) {
