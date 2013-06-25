@@ -101,14 +101,12 @@ public class Grupo extends JFrame {
 				if(artistas.isEnabled()) {
 					VArtista arv = new VArtista();
 					arv.setVisible(true);
-					boolean listo = true;
-					while(arv.getListo() && listo) {
-						Artista ar = arv.getArtista();
-						arv.dispose();
-						gr.anadirIntegrante(ar);
-						listModelA.addElement(ar.getNombre());
-						listo = false;
+					while(arv.getArtista().getNombre() == null) {	
 					}
+					Artista ar = arv.getArtista();
+					arv.dispose();
+					gr.anadirIntegrante(ar);
+					listModelA.addElement(ar.getNombre());
 				}
 			}
 		});
