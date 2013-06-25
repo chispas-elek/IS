@@ -46,7 +46,7 @@ public class Index extends JFrame {
 		bNGrupo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Grupo target = new Grupo();
+				VGrupo target = new VGrupo();
 				target.setVisible(true);
 				while(!target.isVisible()){
 				String g = target.getPGrupo();

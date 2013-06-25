@@ -33,7 +33,7 @@ import java.awt.Dialog.ModalExclusionType;
 import java.awt.event.ContainerAdapter;
 import java.awt.event.ContainerEvent;
 
-public class Grupo extends JFrame {
+public class VGrupo extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel pContenido;
@@ -59,7 +59,7 @@ public class Grupo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Grupo() {
+	public VGrupo() {
 		setTitle("Añadir un grupo nuevo");
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		initialize();
@@ -101,8 +101,7 @@ public class Grupo extends JFrame {
 				if(artistas.isEnabled()) {
 					VArtista arv = new VArtista();
 					arv.setVisible(true);
-					while(arv.getArtista().getNombre() == null) {	
-					}
+					/*TODO Manejar este evento dependiendo del otro: Cuando el artista este listo*/
 					Artista ar = arv.getArtista();
 					arv.dispose();
 					gr.anadirIntegrante(ar);
