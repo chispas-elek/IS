@@ -2,6 +2,8 @@ package packMae;
 
 import java.util.Date;
 
+import javax.swing.DefaultListModel;
+
 import packComponentes.Artista;
 import packComponentes.Disco;
 import packComponentes.EventoMusical;
@@ -30,8 +32,8 @@ public class CatalogoGrupoArtista {
 		return mCatalogoGrupoArtista;
 	}
 	
-	public void addGrupo(String pNombre, String pLogo, ListaArtista pComponentes, ListaArtista pComponentesAntiguos, ListaDisco pDiscografia) {
-		this.lista.addGrupo(pNombre, pLogo, pComponentes, pComponentesAntiguos, pDiscografia);
+	public void addGrupo(String pNombre, String pLogo) {
+		this.lista.addGrupo(pNombre, pLogo);
 	}
 	
 	public Grupo getGrupo(String pNombre) {
@@ -100,5 +102,10 @@ public class CatalogoGrupoArtista {
 		/*TODO
 		 * 
 		 * Usar JGA con algoritmo Sort para ordenar las cosas*/
+	}
+	
+	public DefaultListModel rellenar(DefaultListModel pLm) {
+		this.lista.rellenar(pLm);
+		return pLm;
 	}
 }

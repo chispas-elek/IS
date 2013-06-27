@@ -14,12 +14,12 @@ public class Grupo {
 	
 	
 	//Methods
-	public Grupo(String pNombre, String pLogo, ListaArtista pComponentes, ListaArtista pComponentesAntiguos, ListaDisco pDiscografia) {
+	public Grupo(String pNombre, String pLogo) {
 		this.nombre = pNombre;
 		this.logo = pLogo;
-		this.componentes = pComponentes;
-		this.componentesAnteriores = pComponentesAntiguos;
-		this.discografia = pDiscografia;
+		this.componentes = new ListaArtista();
+		this.componentesAnteriores = new ListaArtista();
+		this.discografia = new ListaDisco();
 	}
 	
 	public void anadirIntegrante(Artista pComponente) {

@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
+import javax.swing.DefaultListModel;
+
 public class ListaGrupo {
 	
 	//Variables
@@ -15,8 +17,8 @@ public class ListaGrupo {
 		this.lista = new ArrayList<Grupo>();
 	}
 	
-	public void addGrupo(String pNombre, String pLogo, ListaArtista pComponentes, ListaArtista pComponentesAntiguos, ListaDisco pDiscografia) {
-		Grupo grupo = new Grupo(pNombre, pLogo, pComponentes, pComponentesAntiguos, pDiscografia);
+	public void addGrupo(String pNombre, String pLogo) {
+		Grupo grupo = new Grupo(pNombre, pLogo);
 		this.lista.add(grupo);
 	}
 	
@@ -61,6 +63,16 @@ public class ListaGrupo {
 	
 	public void reemplazarIntegrante(Artista pArtistaN, Artista pArtistaV, Grupo pGrupo) {
 		this.getGrupo(pGrupo.getNombre()).reemplazarIntegrante(pArtistaV, pArtistaN);
+	}
+	
+	public DefaultListModel rellenar(DefaultListModel pLm) {
+		Iterator<Grupo> it = obIterator();
+		Grupo gr = null;
+		while(it.hasNext()) {
+			gr = it.next();
+			pLm.addElement(gr.getNombre());
+		}
+		return pLm;
 	}
 
 }
