@@ -85,6 +85,7 @@ public class VGrupo extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(!(tNombre.getText() == null || tLogo.getText() == null)) {
+							System.out.println(tNombre.getText());
 							packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().addGrupo(tNombre.getName(), tLogo.getText());
 							dispose();
 						}
