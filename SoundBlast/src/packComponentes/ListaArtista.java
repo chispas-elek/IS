@@ -62,6 +62,22 @@ public class ListaArtista {
 		return found;
 	}
 	
+	public Artista buscarArtista(String pNombre) {
+		Artista pAr = null;
+		boolean found = false;
+		Iterator<Artista> it = this.obIterator();
+		while(it.hasNext() && !found) {
+			pAr = it.next();
+			if(pAr.getNombre() == pNombre) {
+				found = true;
+			}
+		}
+		if(!found) {
+			pAr = null;
+		}
+		return pAr;
+	}
+	
 	public void eliminarArtista(Artista pArtista) {
 		this.listaArtistas.remove(pArtista);
 	}

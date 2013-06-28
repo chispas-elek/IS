@@ -32,6 +32,10 @@ public class Grupo {
 		componentes.eliminarArtista(pComponente);
 	}
 	
+	public Artista buscarComponente(String pComponente) {
+		return componentes.buscarArtista(pComponente);
+	}
+	
 	public Artista getSolista() {
 		return componentes.getSolista();
 	}

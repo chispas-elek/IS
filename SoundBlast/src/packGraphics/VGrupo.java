@@ -110,7 +110,7 @@ public class VGrupo extends JDialog {
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						dispose();
+						setVisible(false);
 					}
 				});
 				cancelButton.setActionCommand("Cancel");

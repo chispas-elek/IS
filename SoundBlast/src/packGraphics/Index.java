@@ -17,6 +17,8 @@ import java.awt.event.ActionEvent;
 public class Index extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	private JDialog vdGrupos = new VDGrupos();
+	private JDialog vdEventos;
 
 	/**
 	 * Launch the application.
@@ -31,6 +33,10 @@ public class Index extends JDialog {
 	}
 	private void initialize() {
 		setTitle("SoundBlast-Main");
+		
+		vdGrupos.pack();
+		vdGrupos.setVisible(false);
+		//vdEventos.pack();
 		
 		//Es una ventana modal
 		setModal(true);
@@ -57,7 +63,7 @@ public class Index extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						//Se abre VDGrupos
 						setVisible(false);
-						new VDGrupos().setVisible(true);
+						vdGrupos.setVisible(true);
 						setVisible(true);
 					}
 				});

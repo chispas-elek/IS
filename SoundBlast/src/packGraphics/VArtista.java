@@ -14,6 +14,7 @@ import java.awt.Insets;
 import javax.swing.JTextField;
 
 import packComponentes.Artista;
+import packComponentes.Grupo;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -23,6 +24,7 @@ public class VArtista extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField tNombre;
 	private JTextField tTipo;
+	private JLabel label;
 
 	/**
 	 * Launch the application.
@@ -37,6 +39,7 @@ public class VArtista extends JDialog {
 	}
 	
 	private void initialize() {
+		
 		setModal(true);
 		
 		setTitle("SoundBlast-Añadir Artista");
@@ -51,6 +54,22 @@ public class VArtista extends JDialog {
 		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
+		{
+			JLabel lblAadirArtistaAl = new JLabel("Añadir artista al grupo");
+			GridBagConstraints gbc_lblAadirArtistaAl = new GridBagConstraints();
+			gbc_lblAadirArtistaAl.insets = new Insets(0, 0, 5, 5);
+			gbc_lblAadirArtistaAl.gridx = 2;
+			gbc_lblAadirArtistaAl.gridy = 0;
+			contentPanel.add(lblAadirArtistaAl, gbc_lblAadirArtistaAl);
+		}
+		{
+			label = new JLabel();
+			GridBagConstraints gbc_label = new GridBagConstraints();
+			gbc_label.insets = new Insets(0, 0, 5, 5);
+			gbc_label.gridx = 3;
+			gbc_label.gridy = 0;
+			contentPanel.add(label, gbc_label);
+		}
 		{
 			JLabel lblNombre = new JLabel("Nombre");
 			GridBagConstraints gbc_lblNombre = new GridBagConstraints();
@@ -96,7 +115,7 @@ public class VArtista extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						//Añadir el artista al grupo
 						Artista ar = new Artista(tNombre.getText(), tTipo.getText());
-						//packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo().addIntegrante(ar);
+						packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo(label.getText()).anadirIntegrante(ar);
 						dispose();
 					}
 				});
@@ -108,7 +127,7 @@ public class VArtista extends JDialog {
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						dispose();
+						setVisible(false);
 					}
 				});
 				cancelButton.setActionCommand("Cancel");
@@ -116,5 +135,9 @@ public class VArtista extends JDialog {
 			}
 		}
 	}
-
+	
+	public void setMiText(String pAr) {
+		label.setText(pAr);
+	}
+	
 }

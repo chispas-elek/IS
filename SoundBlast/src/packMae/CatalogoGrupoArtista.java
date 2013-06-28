@@ -1,5 +1,6 @@
 package packMae;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.DefaultListModel;
@@ -100,10 +101,14 @@ public class CatalogoGrupoArtista {
 		this.getGrupo(pGrupo.getNombre()).anadirDisco(pNom, pAno, pGen, pDur);
 	}
 	
-	public void ordenar() {
-		/*TODO
-		 * 
-		 * Usar JGA con algoritmo Sort para ordenar las cosas*/
+	public DefaultListModel ordenar(DefaultListModel pLm) {
+		DefaultListModel localLm
+		ArrayList<String> s = new ArrayList<String>();
+	}
+	
+	public DefaultListModel filtrar(String pFilter, DefaultListModel pLm) {
+		DefaultListModel plm = new DefaultListModel();
+		return plm;
 	}
 	
 	public DefaultListModel rellenar(DefaultListModel pLm) {
