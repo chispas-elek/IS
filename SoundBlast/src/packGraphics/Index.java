@@ -27,13 +27,14 @@ public class Index extends JDialog {
 	 */
 	public Index() {
 		initialize();
+		pack();
 	}
 	private void initialize() {
 		setTitle("SoundBlast-Main");
 		
 		//Es una ventana modal
 		setModal(true);
-		pack();
+		
 		
 		//Resto de la constructora
 		setBounds(100, 100, 450, 300);
@@ -55,7 +56,9 @@ public class Index extends JDialog {
 				btnVerGrupos.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						//Se abre VDGrupos
+						setVisible(false);
 						new VDGrupos().setVisible(true);
+						setVisible(true);
 					}
 				});
 				GridBagConstraints gbc_btnVerGrupos = new GridBagConstraints();
@@ -87,7 +90,7 @@ public class Index extends JDialog {
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						//Cerramos la ventana y se acaba el programa
-						dispose();
+						System.exit(EXIT_ON_CLOSE);
 					}
 				});
 				cancelButton.setActionCommand("Cancel");

@@ -1,116 +1,120 @@
 package packGraphics;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.FlowLayout;
 
-import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
+import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import javax.swing.JTextField;
 
 import packComponentes.Artista;
-import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class VArtista extends JFrame {
+public class VArtista extends JDialog {
 
-	private JPanel contentPane;
-	private JLabel lblNombre;
+	private final JPanel contentPanel = new JPanel();
 	private JTextField tNombre;
-	private JLabel lblTipo;
 	private JTextField tTipo;
-	private JPanel panel;
-	private Artista ar = new Artista(null, null);
-	private JPanel pBotones;
-	private JButton bAceptar;
-	private boolean listo = false;
 
 	/**
-	 * Create the frame.
+	 * Launch the application.
+	 */
+	
+	/**
+	 * Create the dialog.
 	 */
 	public VArtista() {
 		initialize();
-		bAceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ar.setNombre(tNombre.getText());
-				ar.setTipo(tTipo.getText());
-				setVisible(false);
-				listo = true;
-			}
-		});
+		pack();
 	}
+	
 	private void initialize() {
-		setTitle("Añadir un artista nuevo");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 100);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
-		contentPane.add(getPanel(), BorderLayout.CENTER);
-		contentPane.add(getPBotones(), BorderLayout.SOUTH);
-	}
-
-	private JLabel getLblNombre() {
-		if (lblNombre == null) {
-			lblNombre = new JLabel("Nombre");
+		setModal(true);
+		
+		setTitle("SoundBlast-Añadir Artista");
+		
+		setBounds(100, 100, 450, 300);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		GridBagLayout gbl_contentPanel = new GridBagLayout();
+		gbl_contentPanel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		contentPanel.setLayout(gbl_contentPanel);
+		{
+			JLabel lblNombre = new JLabel("Nombre");
+			GridBagConstraints gbc_lblNombre = new GridBagConstraints();
+			gbc_lblNombre.insets = new Insets(0, 0, 5, 5);
+			gbc_lblNombre.gridx = 5;
+			gbc_lblNombre.gridy = 1;
+			contentPanel.add(lblNombre, gbc_lblNombre);
 		}
-		return lblNombre;
-	}
-	private JTextField getTNombre() {
-		if (tNombre == null) {
+		{
 			tNombre = new JTextField();
+			GridBagConstraints gbc_tNombre = new GridBagConstraints();
+			gbc_tNombre.insets = new Insets(0, 0, 5, 0);
+			gbc_tNombre.fill = GridBagConstraints.HORIZONTAL;
+			gbc_tNombre.gridx = 7;
+			gbc_tNombre.gridy = 1;
+			contentPanel.add(tNombre, gbc_tNombre);
 			tNombre.setColumns(10);
 		}
-		return tNombre;
-	}
-	private JLabel getLblTipo() {
-		if (lblTipo == null) {
-			lblTipo = new JLabel("Tipo");
+		{
+			JLabel lblTipo = new JLabel("Tipo");
+			GridBagConstraints gbc_lblTipo = new GridBagConstraints();
+			gbc_lblTipo.insets = new Insets(0, 0, 0, 5);
+			gbc_lblTipo.gridx = 5;
+			gbc_lblTipo.gridy = 3;
+			contentPanel.add(lblTipo, gbc_lblTipo);
 		}
-		return lblTipo;
-	}
-	private JTextField getTTipo() {
-		if (tTipo == null) {
+		{
 			tTipo = new JTextField();
+			GridBagConstraints gbc_tTipo = new GridBagConstraints();
+			gbc_tTipo.fill = GridBagConstraints.HORIZONTAL;
+			gbc_tTipo.gridx = 7;
+			gbc_tTipo.gridy = 3;
+			contentPanel.add(tTipo, gbc_tTipo);
 			tTipo.setColumns(10);
 		}
-		return tTipo;
-	}
-	private JPanel getPanel() {
-		if (panel == null) {
-			panel = new JPanel();
-			panel.setLayout(new GridLayout(1, 0, 0, 0));
-			panel.add(getLblNombre());
-			panel.add(getTNombre());
-			panel.add(getLblTipo());
-			panel.add(getTTipo());
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						//Añadir el artista al grupo
+						Artista ar = new Artista(tNombre.getText(), tTipo.getText());
+						//packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo().addIntegrante(ar);
+						dispose();
+					}
+				});
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
 		}
-		return panel;
 	}
-	private JPanel getPBotones() {
-		if (pBotones == null) {
-			pBotones = new JPanel();
-			pBotones.add(getBAceptar());
-		}
-		return pBotones;
-	}
-	private JButton getBAceptar() {
-		if (bAceptar == null) {
-			bAceptar = new JButton("Aceptar");
-			
-		}
-		return bAceptar;
-	}
-	
-	public Artista getArtista() {
-		return ar;
-	}
-	
-	public boolean getListo() {
-		return this.listo;
-	}
+
 }

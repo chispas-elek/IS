@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
+import javax.swing.DefaultListModel;
+
 public class ListaArtista {
 
 	//Variables
@@ -73,6 +75,16 @@ public class ListaArtista {
 			data.add(ar.getNombre());
 		}
 		return data;
+	}
+	
+	public DefaultListModel actualizar(DefaultListModel pLm) {
+		Iterator<Artista> it = this.obIterator();
+		Artista ar = null;
+		while(it.hasNext()) {
+			ar = it.next();
+			pLm.addElement(ar.getNombre());
+		}
+		return pLm;
 	}
 	
 }

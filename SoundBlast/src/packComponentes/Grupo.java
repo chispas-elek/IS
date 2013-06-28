@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
+import javax.swing.DefaultListModel;
+
 
 public class Grupo {
 	
@@ -81,5 +83,17 @@ public class Grupo {
 	
 	public void anadirDisco(String pNom, Date pAno, Genero pGen, int pDur) {
 		this.discografia.addDisco(pNom, pAno, pGen, pDur);
+	}
+	
+	public DefaultListModel actArt(DefaultListModel pLm) {
+		return this.componentes.actualizar(pLm);
+	}
+	
+	public DefaultListModel actDis(DefaultListModel pLm) {
+		return this.discografia.actualizar(pLm);
+	}
+	
+	public DefaultListModel actArtAnt(DefaultListModel pLm) {
+		return this.componentesAnteriores.actualizar(pLm);
 	}
 }

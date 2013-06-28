@@ -11,6 +11,9 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
+
+import packComponentes.Grupo;
+
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -29,7 +32,14 @@ public class VGrupo extends JDialog {
 	 * Create the dialog.
 	 */
 	public VGrupo() {
+		initialize();
+		pack();
+	}
+	
+	public void initialize() {
 		setModal(true);
+		
+		setTitle("SoundBlast-Añadir Grupo");
 		
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -85,8 +95,9 @@ public class VGrupo extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(!(tNombre.getText() == null || tLogo.getText() == null)) {
-							System.out.println(tNombre.getText());
-							packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().addGrupo(tNombre.getName(), tLogo.getText());
+							String p = tNombre.getText();
+							String p2 = tLogo.getText();
+							packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().addGrupo(p, p2);
 							dispose();
 						}
 					}

@@ -23,6 +23,8 @@ import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class VDGrupos extends JDialog {
 
@@ -32,7 +34,9 @@ public class VDGrupos extends JDialog {
 	private JList miLista, lArtistas, lDiscos, lAAntiguos;
 	private JPanel pLista, pData, panel, pBotones;
 	private JTextField lblNombre, lblLogo;
-	private DefaultListModel lm = new DefaultListModel();
+	private DefaultListModel lmGrupos, lmArtistas, lmDiscos, lmAAntiguos;
+	private JButton btnAnadirGrupo, btnEliminarGrupo, btnEditarGrupo;
+	private JButton btnActualizar;
 	
 	/**
 	 * Launch the application.
@@ -43,7 +47,12 @@ public class VDGrupos extends JDialog {
 	 * Create the dialog.
 	 */
 	public VDGrupos() {
+		lmGrupos = new DefaultListModel();
+		lmArtistas = new DefaultListModel();
+		lmDiscos = new DefaultListModel();
+		lmAAntiguos = new DefaultListModel();
 		initialize();
+		pack();
 	}
 	private void initialize() {
 		setTitle("SoundBlast-Grupos");
@@ -66,14 +75,24 @@ public class VDGrupos extends JDialog {
 				pLista.add(panel, BorderLayout.WEST);
 				{
 					
-					miLista = new JList(lm);
+					miLista = new JList(lmGrupos);
 					miLista.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 					miLista.addListSelectionListener(new ListSelectionListener() {
 						public void valueChanged(ListSelectionEvent arg0) {
-							Grupo gr = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo((String) miLista.getSelectedValue());
-							lblNombre.setText(gr.getNombre());
-							lblLogo.setText(gr.getLogo());
-							//Rellenar las listas*/
+							//Habilitar botones
+							/*TODO*/
+							if(!(miLista.getSelectedValue() == null)) { 
+								btnEliminarGrupo.setEnabled(true);
+								btnEditarGrupo.setEnabled(true);
+								Grupo gr = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo((String) miLista.getSelectedValue());
+								tNombre.setText(gr.getNombre());
+								tLogo.setText(gr.getLogo());
+								//Rellenar las listas*/
+								rellenarListas(gr);
+							}
+							else {
+								reset();
+							}
 						}
 					});
 					
@@ -104,7 +123,6 @@ public class VDGrupos extends JDialog {
 				}
 				{
 					tNombre = new JTextField();
-					tNombre.setEnabled(false);
 					tNombre.setEditable(false);
 					GridBagConstraints gbc_tNombre = new GridBagConstraints();
 					gbc_tNombre.insets = new Insets(0, 0, 5, 5);
@@ -125,7 +143,6 @@ public class VDGrupos extends JDialog {
 				}
 				{
 					tLogo = new JTextField();
-					tLogo.setEnabled(false);
 					tLogo.setEditable(false);
 					GridBagConstraints gbc_tLogo = new GridBagConstraints();
 					gbc_tLogo.insets = new Insets(0, 0, 5, 5);
@@ -145,7 +162,17 @@ public class VDGrupos extends JDialog {
 					pData.add(lblArtistas, gbc_lblArtistas);
 				}
 				{
-					JList lArtistas = new JList();
+					lArtistas = new JList(lmArtistas);
+					lArtistas.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							if(!(tNombre.getText() == null)) {
+								Grupo gr = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo((String) miLista.getSelectedValue());
+								new VArtista().setVisible(true);
+								rellenarListas(gr);
+							}	
+						}
+					});
 					lArtistas.setEnabled(false);
 					GridBagConstraints gbc_lArtistas = new GridBagConstraints();
 					gbc_lArtistas.insets = new Insets(0, 0, 5, 5);
@@ -164,7 +191,7 @@ public class VDGrupos extends JDialog {
 					pData.add(lblDiscografia, gbc_lblDiscografia);
 				}
 				{
-					JList lDiscos = new JList();
+					lDiscos = new JList(lmDiscos);
 					lDiscos.setEnabled(false);
 					GridBagConstraints gbc_lDiscos = new GridBagConstraints();
 					gbc_lDiscos.insets = new Insets(0, 0, 5, 5);
@@ -183,7 +210,7 @@ public class VDGrupos extends JDialog {
 					pData.add(lblArtistasAntiguos, gbc_lblArtistasAntiguos);
 				}
 				{
-					JList lAAntiguos = new JList();
+					lAAntiguos = new JList(lmAAntiguos);
 					lAAntiguos.setEnabled(false);
 					GridBagConstraints gbc_lAAntiguos = new GridBagConstraints();
 					gbc_lAAntiguos.insets = new Insets(0, 0, 0, 5);
@@ -198,24 +225,58 @@ public class VDGrupos extends JDialog {
 			pBotones = new JPanel();
 			contentPanel.add(pBotones, BorderLayout.SOUTH);
 			{
-				JButton btnAadirGrupo = new JButton("Añadir grupo");
-				btnAadirGrupo.addActionListener(new ActionListener() {
+				btnAnadirGrupo = new JButton("Añadir grupo");
+				btnAnadirGrupo.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						new VGrupo().setVisible(true);
 						actualizar();
 					}
 				});
-				pBotones.add(btnAadirGrupo);
+				pBotones.add(btnAnadirGrupo);
 			}
 			{
-				JButton btnEliminarGrupo = new JButton("Eliminar grupo");
+				btnEliminarGrupo = new JButton("Eliminar grupo");
+				btnEliminarGrupo.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().eliminarGrupo((String)miLista.getSelectedValue());
+						actualizar();
+					}
+				});
 				btnEliminarGrupo.setEnabled(false);
 				pBotones.add(btnEliminarGrupo);
 			}
 			{
-				JButton btnEditarGrupo = new JButton("Editar grupo");
+				btnEditarGrupo = new JButton("Editar grupo");
+				btnEditarGrupo.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						tNombre.setEditable(true);
+						tLogo.setEditable(true);
+						btnActualizar.setEnabled(true);
+					}
+				});
 				btnEditarGrupo.setEnabled(false);
 				pBotones.add(btnEditarGrupo);
+			}
+			{
+				btnActualizar = new JButton("Actualizar");
+				btnActualizar.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						String nom = tNombre.getText();
+						String log = tLogo.getText();
+						Grupo gr = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo((String)miLista.getSelectedValue());
+						gr.setNombre(nom);
+						gr.setLogo(log);
+						tNombre.setEditable(false);
+						tLogo.setEditable(false);
+						btnActualizar.setEnabled(false);
+						tNombre.setText(gr.getNombre());
+						tLogo.setText(gr.getLogo());
+						actualizar();
+					}
+				});
+				btnActualizar.setEnabled(false);
+				pBotones.add(btnActualizar);
 			}
 		}
 		{
@@ -234,6 +295,7 @@ public class VDGrupos extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						//Cerramos la ventana
 						dispose();
+						//Volvemos
 					}
 				});
 				cancelButton.setActionCommand("Cancel");
@@ -243,9 +305,28 @@ public class VDGrupos extends JDialog {
 	}
 	
 	private void actualizar() {
-		lm.removeAllElements();
-		packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().rellenar(lm);
+		lmGrupos.removeAllElements();
+		packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().rellenar(lmGrupos);
 		
 	}
+	
+	private void rellenarListas(Grupo pGr) {
+		lmArtistas.removeAllElements();
+		lmDiscos.removeAllElements();
+		lmAAntiguos.removeAllElements();
+		pGr.actArt(lmArtistas);
+		pGr.actDis(lmDiscos);
+		pGr.actArtAnt(lmAAntiguos);
+	}
+	
+	private void reset() {
+		tNombre.setText("");
+		tLogo.setText("");
+	}
+	
+	public String getNomGrupo() {
+		Grupo gr = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo((String) miLista.getSelectedValue());
+		return gr.getNombre();
+	}		
 
 }

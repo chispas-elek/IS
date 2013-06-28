@@ -33,9 +33,9 @@ public class CatalogoGrupoArtista {
 	}
 	
 	public void addGrupo(String pNombre, String pLogo) {
-		System.out.println(pNombre);
+		//System.out.println(pNombre);
 		this.lista.addGrupo(pNombre, pLogo);
-		System.out.println("tutto bene");
+		//System.out.println("tutto bene");
 	}
 	
 	public Grupo getGrupo(String pNombre) {

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Date;
 
+import javax.swing.DefaultListModel;
+
 public class ListaDisco {
 
 	//Variables
@@ -51,6 +53,16 @@ public class ListaDisco {
 			disc = null;
 		}
 		return disc;
+	}
+	
+	public DefaultListModel actualizar(DefaultListModel pLm) {
+		Iterator<Disco> it = this.obIterator();
+		Disco disco = null;
+		while(it.hasNext()) {
+			disco = it.next();
+			pLm.addElement(disco.getNombreDisco());
+		}
+		return pLm;
 	}
 	
 	

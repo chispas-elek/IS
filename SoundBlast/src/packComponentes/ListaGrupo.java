@@ -18,10 +18,8 @@ public class ListaGrupo {
 	}
 	
 	public void addGrupo(String pNombre, String pLogo) {
-		System.out.println(pNombre);
 		Grupo grupo = new Grupo(pNombre, pLogo);
 		this.lista.add(grupo);
-		System.out.println("tutto bene");
 	}
 	
 	private Iterator<Grupo> obIterator() {
@@ -72,7 +70,6 @@ public class ListaGrupo {
 		Grupo gr = null;
 		while(it.hasNext()) {
 			gr = it.next();
-			System.out.println(gr.getNombre());
 			pLm.addElement(gr.getNombre());
 		}
 		return pLm;
