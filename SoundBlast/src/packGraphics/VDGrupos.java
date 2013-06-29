@@ -43,6 +43,7 @@ public class VDGrupos extends JDialog {
 	private JButton btnBuscar;
 	private JButton btnAadirArtista;
 	private JButton btnBorrarArtista;
+	private JButton btnReemplazarArtista;
 	
 	/**
 	 * Launch the application.
@@ -257,6 +258,26 @@ public class VDGrupos extends JDialog {
 					gbc_lAAntiguos.gridy = 5;
 					pData.add(lAAntiguos, gbc_lAAntiguos);
 				}
+				{
+					btnReemplazarArtista = new JButton("Reemplazar Artista");
+					btnReemplazarArtista.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							if(!(tNombre.getText() == null)) {
+								Grupo gr = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo((String) miLista.getSelectedValue());
+								((VArtista) vArtista).setMiText(gr.getNombre());
+								vArtista.setVisible(true);
+								rellenarListas(gr);
+								packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().reemplazarIntegrante(null, (String)lArtistas.getSelectedValue(), (String)miLista.getSelectedValue());
+							}
+							
+						}
+					});
+					btnReemplazarArtista.setEnabled(false);
+					GridBagConstraints gbc_btnReemplazarArtista = new GridBagConstraints();
+					gbc_btnReemplazarArtista.gridx = 3;
+					gbc_btnReemplazarArtista.gridy = 5;
+					pData.add(btnReemplazarArtista, gbc_btnReemplazarArtista);
+				}
 			}
 		}
 		{
@@ -294,6 +315,7 @@ public class VDGrupos extends JDialog {
 						btnAadirArtista.setEnabled(true);
 						btnBorrarArtista.setEnabled(true);
 						btnActualizar.setEnabled(true);
+						btnReemplazarArtista.setEnabled(true);
 						lArtistas.setEnabled(true);
 						lAAntiguos.setEnabled(true);
 						lDiscos.setEnabled(true);
@@ -313,6 +335,7 @@ public class VDGrupos extends JDialog {
 						gr.setNombre(nom);
 						gr.setLogo(log);
 						tNombre.setEditable(false);
+						btnReemplazarArtista.setEnabled(false);
 						tLogo.setEditable(false);
 						btnActualizar.setEnabled(false);
 						btnAadirArtista.setEnabled(false);
@@ -331,7 +354,9 @@ public class VDGrupos extends JDialog {
 				btnBuscar = new JButton("Buscar");
 				btnBuscar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
+						setVisible(false);
 						vBuscar.setVisible(true);
+						setVisible(true);
 					}
 				});
 				pBotones.add(btnBuscar);

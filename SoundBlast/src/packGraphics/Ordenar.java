@@ -8,13 +8,13 @@ import packComponentes.Artista;
 public class Ordenar implements Comparator<String> {
 	
 	//Variables
-	private ArrayList<String> lista;
+	
 	
 	
 	//Metodos
 	
-	public Ordenar(ArrayList<String> pLista) {
-		lista = pLista;
+	public Ordenar() {
+		
 	}
 	
 	public int compare(String s1, String s2) {

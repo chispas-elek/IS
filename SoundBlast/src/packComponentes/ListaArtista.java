@@ -49,13 +49,13 @@ public class ListaArtista {
 		this.listaArtistas.add(pArtista);
 	}
 	
-	public boolean estaArtista(Artista pArtista) {
+	public boolean estaArtista(String pArtista) {
 		Artista pAr = null;
 		boolean found = false;
 		Iterator<Artista> it = this.obIterator();
 		while(it.hasNext() && !found) {
 			pAr = it.next();
-			if(pAr == pArtista) {
+			if(pAr.getNombre() == pArtista) {
 				found = true;
 			}
 		}
@@ -82,19 +82,22 @@ public class ListaArtista {
 		this.listaArtistas.remove(pArtista);
 	}
 	
-	public ArrayList<String> extraerNombres() {
-		ArrayList<String> data = new ArrayList<String>();
-		Iterator<Artista> it = this.obIterator();
-		Artista ar = null;
-		while(it.hasNext()) {
-			ar = it.next();
-			data.add(ar.getNombre());
-		}
-		return data;
+	public ArrayList<Artista> getArtistas() {
+		return this.listaArtistas;
 	}
 	
 	public DefaultListModel actualizar(DefaultListModel pLm) {
 		Iterator<Artista> it = this.obIterator();
+		Artista ar = null;
+		while(it.hasNext()) {
+			ar = it.next();
+			pLm.addElement(ar.getNombre());
+		}
+		return pLm;
+	}
+	
+	public DefaultListModel rellenar(DefaultListModel pLm) {
+		Iterator<Artista> it = obIterator();
 		Artista ar = null;
 		while(it.hasNext()) {
 			ar = it.next();

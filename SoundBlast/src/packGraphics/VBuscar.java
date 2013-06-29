@@ -16,16 +16,26 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import net.sf.jga.algorithms.Filter;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class VBuscar extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private DefaultComboBoxModel lmCombo = new DefaultComboBoxModel();
 	private JComboBox comboBox;
 	private final JPanel resultado = new JPanel();
-	private JList miLista;
+	private JList list;
 	private DefaultListModel lmLista = new DefaultListModel();
 	private JTextField textField;
-
+	private JPanel panel;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -34,6 +44,13 @@ public class VBuscar extends JDialog {
 	 * Create the dialog.
 	 */
 	public VBuscar() {
+		initialize();
+		pack();
+	}
+	
+	public void initialize() {
+		
+		setModal(true);
 		setBounds(100, 100, 450, 300);
 		
 		getContentPane().setLayout(new BorderLayout());
@@ -41,7 +58,7 @@ public class VBuscar extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
-			JPanel panel = new JPanel();
+			panel = new JPanel();
 			contentPanel.add(panel, BorderLayout.NORTH);
 			{
 				JLabel lblBuscarPor = new JLabel("Buscar por:");
@@ -49,6 +66,7 @@ public class VBuscar extends JDialog {
 			}
 			{
 				comboBox = new JComboBox(lmCombo);
+				comboBox.addActionListener(new SeleccionListener());
 				lmCombo.addElement("Artistas");
 				lmCombo.addElement("Grupos");
 				lmCombo.addElement("Eventos");
@@ -58,17 +76,7 @@ public class VBuscar extends JDialog {
 		contentPanel.add(resultado, BorderLayout.CENTER);
 		resultado.setLayout(new BorderLayout(0, 0));
 		{
-			JList list = new JList(lmLista);
-			switch((String)comboBox.getSelectedItem()) {
-				case "Artistas":
-					//Rellenar la lista con los artistas ordenados
-					break;
-				case "Grupos":
-					//Rellenar la lista con los grupos ordenados
-					break;
-				default:
-					break;
-			}
+			list = new JList(lmLista);
 			resultado.add(list, BorderLayout.CENTER);
 		}
 		{
@@ -77,21 +85,81 @@ public class VBuscar extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				textField = new JTextField();
+				textField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						
+					}	
+				});
 				buttonPane.add(textField);
 				textField.setColumns(10);
 			}
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if((String)comboBox.getSelectedItem() == "Artistas") {
+							DefaultListModel lm = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().filtrarArtistas(textField.getText());
+							list = new JList(lm);
+							actualizarArtistas();
+						}
+						else {
+							DefaultListModel lm = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().filtrarGrupos(textField.getText());
+							list = new JList(lm);
+							actualizar();
+						}
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						setVisible(false);
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+	
+	private void actualizar() {
+		lmLista.removeAllElements();
+		packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().rellenar(lmLista);
+		
+	}
+	
+	private void actualizarArtistas() {
+		lmLista.removeAllElements();
+		packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().rellenarArtistas(lmLista);
+		
+	}
+	
+	private class SeleccionListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			switch((String)comboBox.getSelectedItem()) {
+				case "Artistas":
+					lmLista = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().rellenar(lmLista);
+					DefaultListModel lm = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().ordenar(lmLista);
+					list = new JList(lm);
+					resultado.add(list);
+					actualizarArtistas();
+					break;
+				case "Grupos":
+					DefaultListModel lmg = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().ordenar(lmLista);
+					list = new JList(lmg);
+					resultado.add(list);
+					actualizar();
+					break;
+				default:
+					break;
+				}
+			}
+		
 	}
 
 }

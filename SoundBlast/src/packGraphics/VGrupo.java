@@ -68,6 +68,7 @@ public class VGrupo extends JDialog {
 			gbc_tNombre.gridy = 2;
 			contentPanel.add(tNombre, gbc_tNombre);
 			tNombre.setColumns(10);
+			
 		}
 		{
 			JLabel lblLogo = new JLabel("Logo");
@@ -85,6 +86,7 @@ public class VGrupo extends JDialog {
 			gbc_tLogo.gridy = 3;
 			contentPanel.add(tLogo, gbc_tLogo);
 			tLogo.setColumns(10);
+			
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -98,6 +100,8 @@ public class VGrupo extends JDialog {
 							String p = tNombre.getText();
 							String p2 = tLogo.getText();
 							packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().addGrupo(p, p2);
+							tLogo.setText("");
+							tNombre.setText("");
 							dispose();
 						}
 					}
