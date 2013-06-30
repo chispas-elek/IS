@@ -65,7 +65,7 @@ public class ListaGrupo {
 		this.getGrupo(pGrupo.getNombre()).anadirIntegrante(pComponente);
 	}
 	
-	public void reemplazarIntegrante(String pArtistaN, String pArtistaV, String pGrupo) {
+	public void reemplazarIntegrante(Artista pArtistaN, Artista pArtistaV, String pGrupo) {
 		this.getGrupo(pGrupo).reemplazarIntegrante(pArtistaV, pArtistaN);
 	}
 	

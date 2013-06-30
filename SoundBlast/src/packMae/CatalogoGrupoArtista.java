@@ -67,9 +67,9 @@ public class CatalogoGrupoArtista {
 		this.listaA.addArtista(pArtista);
 	}
 	
-	public void reemplazarIntegrante(String pArtistaN, String pArtistaV, String pGrupo) {
+	public void reemplazarIntegrante(Artista pArtistaN, Artista pArtistaV, String pGrupo) {
 		this.lista.reemplazarIntegrante(pArtistaN, pArtistaV, pGrupo);
-		this.listaA.addArtista(this.lista.getGrupo(pGrupo).buscarComponente(pArtistaN));
+		//this.listaA.addArtista(this.lista.getGrupo(pGrupo).buscarComponente(pArtistaN));
 	}
 	
 	public Disco buscarDisco(String pNombre, Grupo pGrupo) {

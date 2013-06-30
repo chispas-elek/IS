@@ -11,6 +11,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JList;
 
+import packComponentes.Artista;
 import packComponentes.Grupo;
 
 import java.awt.event.ActionListener;
@@ -177,6 +178,12 @@ public class VDGrupos extends JDialog {
 				}
 				{
 					lArtistas = new JList(lmArtistas);
+					lArtistas.addListSelectionListener(new ListSelectionListener() {
+						public void valueChanged(ListSelectionEvent arg0) {
+							btnReemplazarArtista.setEnabled(true);
+							btnBorrarArtista.setEnabled(true);
+						}
+					});
 					
 					lArtistas.setEnabled(false);
 					GridBagConstraints gbc_lArtistas = new GridBagConstraints();
@@ -265,9 +272,10 @@ public class VDGrupos extends JDialog {
 							if(!(tNombre.getText() == null)) {
 								Grupo gr = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo((String) miLista.getSelectedValue());
 								((VArtista) vArtista).setMiText(gr.getNombre());
+								((VArtista) vArtista).setMiTexto((String)lArtistas.getSelectedValue());
+								((VArtista) vArtista).buttonOn();
 								vArtista.setVisible(true);
 								rellenarListas(gr);
-								packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().reemplazarIntegrante(null, (String)lArtistas.getSelectedValue(), (String)miLista.getSelectedValue());
 							}
 							
 						}
@@ -313,9 +321,7 @@ public class VDGrupos extends JDialog {
 						tNombre.setEditable(true);
 						tLogo.setEditable(true);
 						btnAadirArtista.setEnabled(true);
-						btnBorrarArtista.setEnabled(true);
 						btnActualizar.setEnabled(true);
-						btnReemplazarArtista.setEnabled(true);
 						lArtistas.setEnabled(true);
 						lAAntiguos.setEnabled(true);
 						lDiscos.setEnabled(true);
@@ -408,6 +414,6 @@ public class VDGrupos extends JDialog {
 		lmArtistas.removeAllElements();
 		lmAAntiguos.removeAllElements();
 		lmDiscos.removeAllElements();
-	}	
+	}
 
 }

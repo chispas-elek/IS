@@ -68,16 +68,15 @@ public class Grupo {
 		this.logo = pLogo;
 	}
 	
-	public void reemplazarIntegrante(String pViejo, String pNuevo) {
+	public void reemplazarIntegrante(Artista pViejo, Artista pNuevo) {
 		
-		if(!this.getComponentes().estaArtista(pViejo)) {
+		if(!this.getComponentes().estaArtista(pViejo.getNombre())) {
 			System.out.println("El artista no existe");
 		}
 		else {
-			ArtistaAntiguo pArt = new ArtistaAntiguo(buscarComponente(pViejo));
-			componentesAnteriores.addArtista(pArt);
-			this.eliminarComponente(buscarComponente(pViejo));
-			this.anadirIntegrante(buscarComponente(pNuevo));	
+			componentesAnteriores.addArtista(pViejo);
+			this.eliminarComponente(buscarComponente(pViejo.getNombre()));
+			this.anadirIntegrante(pNuevo);	
 		}
 	}
 	
