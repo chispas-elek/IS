@@ -44,6 +44,7 @@ public class VBuscar extends JDialog {
 	 * Create the dialog.
 	 */
 	public VBuscar() {
+		setTitle("SoundBlast - Buscar");
 		initialize();
 		pack();
 	}
@@ -77,6 +78,7 @@ public class VBuscar extends JDialog {
 		resultado.setLayout(new BorderLayout(0, 0));
 		{
 			list = new JList(lmLista);
+			actualizar();
 			resultado.add(list, BorderLayout.CENTER);
 		}
 		{

@@ -144,6 +144,7 @@ public class VArtista extends JDialog {
 						public void actionPerformed(ActionEvent arg0) {
 							Artista ar = new Artista(tNombre.getText(), tTipo.getText());
 							packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().reemplazarIntegrante(ar, packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo(label.getText()).buscarComponente(labelN.getText()), label.getText());
+							setVisible(false);
 						}
 					});
 					btnReemplazar.setVisible(false);
