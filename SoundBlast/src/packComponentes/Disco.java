@@ -21,6 +21,11 @@ public class Disco {
 		this.gen = pGen;
 		
 	}
+	
+	public void addCancion(int pNum, int pDur, int pPunt, String pTitulo, String pComp, Genero pGen) {
+		Cancion c = new Cancion(pNum, pDur, pPunt, pTitulo, pComp, pGen);
+		this.canciones.anadirCancion(c);
+	}
 
 
 	public String getNombreDisco() {

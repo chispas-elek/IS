@@ -3,6 +3,8 @@ package packComponentes;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.DefaultListModel;
+
 public class ListaCancion {
 
 	//Variables
@@ -39,6 +41,15 @@ public class ListaCancion {
 			cancion = null;
 		}
 		return cancion;
+	}
+	
+	public void actualizar(DefaultListModel pLm) {
+		Iterator<Cancion> it = this.obIterator();
+		Cancion c = null;
+		while(it.hasNext()) {
+			c = it.next();
+			pLm.addElement(c.getTitulo());
+		}
 	}
 
 }

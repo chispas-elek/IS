@@ -13,12 +13,14 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Index extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JDialog vdGrupos = new VDGrupos();
-	private JDialog vdEventos;
+	private JDialog vdEventos = new VDEventos();
 
 	/**
 	 * Launch the application.
@@ -75,6 +77,14 @@ public class Index extends JDialog {
 			}
 			{
 				JButton btnVerEventos = new JButton("Ver eventos");
+				btnVerEventos.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						setVisible(false);
+						vdEventos.setVisible(true);
+						setVisible(true);
+					}
+				});
 				GridBagConstraints gbc_btnVerEventos = new GridBagConstraints();
 				gbc_btnVerEventos.gridx = 5;
 				gbc_btnVerEventos.gridy = 4;
