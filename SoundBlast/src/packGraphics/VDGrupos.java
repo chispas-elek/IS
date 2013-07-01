@@ -40,11 +40,16 @@ public class VDGrupos extends JDialog {
 	private JButton btnActualizar;
 	private JDialog vGrupo = new VGrupo();
 	private JDialog vArtista = new VArtista();
-	private JDialog vBuscar = new VBuscar();
+	private JDialog vBuscar = new VVBuscar();
 	private JButton btnBuscar;
 	private JButton btnAadirArtista;
 	private JButton btnBorrarArtista;
 	private JButton btnReemplazarArtista;
+	private JButton btnAadirDisco;
+	private JButton btnBorrarDisco;
+	private JButton btnGestionarDisco;
+	private JDialog vaDisco = new VADisco();
+	private JDialog vDisco = new VDisco();
 	
 	/**
 	 * Launch the application.
@@ -95,7 +100,6 @@ public class VDGrupos extends JDialog {
 					miLista.addListSelectionListener(new ListSelectionListener() {
 						public void valueChanged(ListSelectionEvent arg0) {
 							//Habilitar botones
-							/*TODO*/
 							if(!(miLista.getSelectedValue() == null)) { 
 								btnEliminarGrupo.setEnabled(true);
 								btnEditarGrupo.setEnabled(true);
@@ -148,6 +152,20 @@ public class VDGrupos extends JDialog {
 					tNombre.setColumns(10);
 				}
 				{
+					btnGestionarDisco = new JButton("Gestionar Disco");
+					btnGestionarDisco.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							vDisco.setVisible(true);
+						}
+					});
+					btnGestionarDisco.setEnabled(false);
+					GridBagConstraints gbc_btnGestionarDisco = new GridBagConstraints();
+					gbc_btnGestionarDisco.insets = new Insets(0, 0, 5, 0);
+					gbc_btnGestionarDisco.gridx = 3;
+					gbc_btnGestionarDisco.gridy = 0;
+					pData.add(btnGestionarDisco, gbc_btnGestionarDisco);
+				}
+				{
 					JLabel lblLogo = new JLabel("Logo");
 					GridBagConstraints gbc_lblLogo = new GridBagConstraints();
 					gbc_lblLogo.anchor = GridBagConstraints.NORTHWEST;
@@ -166,6 +184,29 @@ public class VDGrupos extends JDialog {
 					gbc_tLogo.gridy = 1;
 					pData.add(tLogo, gbc_tLogo);
 					tLogo.setColumns(10);
+				}
+				{
+					btnBorrarDisco = new JButton("Borrar Disco");
+					btnBorrarDisco.setEnabled(false);
+					GridBagConstraints gbc_btnBorrarDisco = new GridBagConstraints();
+					gbc_btnBorrarDisco.insets = new Insets(0, 0, 5, 0);
+					gbc_btnBorrarDisco.gridx = 3;
+					gbc_btnBorrarDisco.gridy = 1;
+					pData.add(btnBorrarDisco, gbc_btnBorrarDisco);
+				}
+				{
+					btnAadirDisco = new JButton("Añadir Disco");
+					btnAadirDisco.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							vaDisco.setVisible(true);
+						}
+					});
+					btnAadirDisco.setEnabled(false);
+					GridBagConstraints gbc_btnAadirDisco = new GridBagConstraints();
+					gbc_btnAadirDisco.insets = new Insets(0, 0, 5, 0);
+					gbc_btnAadirDisco.gridx = 3;
+					gbc_btnAadirDisco.gridy = 2;
+					pData.add(btnAadirDisco, gbc_btnAadirDisco);
 				}
 				{
 					JLabel lblArtistas = new JLabel("Artistas");
@@ -361,6 +402,7 @@ public class VDGrupos extends JDialog {
 				btnBuscar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						setVisible(false);
+						((VVBuscar) vBuscar).actualizar();
 						vBuscar.setVisible(true);
 						setVisible(true);
 					}
