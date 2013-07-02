@@ -3,6 +3,8 @@ package packComponentes;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.DefaultListModel;
+
 public class ListaEventoMusical {
 
 	
@@ -43,6 +45,22 @@ public class ListaEventoMusical {
 		while(it.hasNext() && !found) {
 			evento = it.next();
 			if(evento.getId() == pId) {
+				found = true;
+			}
+		}
+		if(!found) {
+			evento = null;
+		}
+		return evento;
+	}
+	
+	public EventoMusical buscarEvento(String pNom) {
+		Iterator<EventoMusical> it = this.obIterator();
+		boolean found = false;
+		EventoMusical evento = null;
+		while(it.hasNext() && !found) {
+			evento = it.next();
+			if(evento.getNombre() == pNom) {
 				found = true;
 			}
 		}
@@ -120,6 +138,37 @@ public class ListaEventoMusical {
 			}
 		}
 		return flag;
+	}
+	
+	public void rellenar(DefaultListModel pLm) {
+		Iterator<EventoMusical> it = this.obIterator();
+		EventoMusical e = null;
+		while(it.hasNext()) {
+			e = it.next();
+			pLm.addElement(e.getNombre());
+		}
+	}
+	
+	public void actualizar(DefaultListModel pLm, String pFilter) {
+		Iterator<EventoMusical> it = this.obIterator();
+		EventoMusical e = null;
+		while(it.hasNext()) {
+			e = it.next();
+			if(this.buscar(pFilter, e.getNombre())) {
+				pLm.addElement(e.getNombre());
+			}
+		}
+	}
+	
+	private boolean buscar(String pFilter, String pComp) {
+		boolean result = true;
+		int i = 0;
+		while(i<= pComp.length() && i <= pFilter.length()) {
+			if(pComp.charAt(i) != pFilter.charAt(i)) {
+				result = false;
+			}
+		}
+		return result;
 	}
 	
 }

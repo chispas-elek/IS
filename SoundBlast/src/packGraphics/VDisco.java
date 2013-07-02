@@ -188,6 +188,8 @@ public class VDisco extends JDialog {
 					btnBorrarCancion.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo(lGrupo.getText()).buscarDisco(label.getText()).getCanciones().eliminarCancion(packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo(lGrupo.getText()).buscarDisco(label.getText()).getCanciones().buscarCancion((String)list.getSelectedValue()));
+							
+							actualizar();
 							btnBorrarCancion.setEnabled(false);
 						}
 					});
@@ -266,6 +268,11 @@ public class VDisco extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						setVisible(false);
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
@@ -280,6 +287,10 @@ public class VDisco extends JDialog {
 	private void actualizar() {
 		lm.removeAllElements();
 		packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo(lGrupo.getText()).buscarDisco(label.getText()).getCanciones().actualizar(lm);
+	}
+	
+	private void reset() {
+		
 	}
 
 }

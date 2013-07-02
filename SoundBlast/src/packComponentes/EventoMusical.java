@@ -8,12 +8,12 @@ public abstract class EventoMusical {
 	private int id, maxEntradas;
 	private String nombre, lugar;
 	private Date fecha,hora;
-	private float precioEntrada, precioVip;
+	private int precioEntrada, precioVip;
 	private Genero genero;
 	private ListaGrupo gruposParticipantes;
 	private ListaEntrada listaEntradas;
-	public EventoMusical(int pId, int pMaxEntradas, String pNombre, String pLugar, Date pFecha, Date pHora, float pPrecioEntrada, float pPrecioVip, Genero pGenero, ListaGrupo pGruposParticipantes, ListaEntrada pListaEntradas) {
-		this.id = pId;
+	public EventoMusical(int pMaxEntradas, String pNombre, String pLugar, Date pFecha, Date pHora, int pPrecioEntrada, int pPrecioVip, Genero pGenero, ListaGrupo pGruposParticipantes, ListaEntrada pListaEntradas) {
+		this.id = Integer.parseInt(new Date().toString());
 		this.maxEntradas = pMaxEntradas;
 		this.nombre = pNombre;
 		this.lugar = pLugar;

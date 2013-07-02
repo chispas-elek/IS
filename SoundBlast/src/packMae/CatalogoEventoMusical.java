@@ -1,5 +1,7 @@
 package packMae;
 
+import javax.swing.DefaultListModel;
+
 import packComponentes.EventoMusical;
 import packComponentes.Genero;
 import packComponentes.Grupo;
@@ -38,6 +40,10 @@ public class CatalogoEventoMusical {
 		return this.lista.buscarEvento(pGrupo);
 	}
 	
+	public EventoMusical buscarEvento(String pNom) {
+		return this.lista.buscarEvento(pNom);
+	}
+	
 	public ListaEventoMusical buscarFestivalesPorGenero(Genero pGen) {
 		return this.lista.buscarFestivalesPorGenero(pGen);
 	}
@@ -72,6 +78,14 @@ public class CatalogoEventoMusical {
 	
 	public boolean esta(int pId) {
 		return this.lista.esta(pId);
+	}
+	
+	public void rellenar(DefaultListModel pLm) {
+		this.lista.rellenar(pLm);
+	}
+	
+public void actualizar(DefaultListModel pLm, String pFilter) {
+		this.lista.actualizar(pLm, pFilter);
 	}
 
 }
