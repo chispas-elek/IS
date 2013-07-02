@@ -55,14 +55,15 @@ public class ListaDisco {
 		return disc;
 	}
 	
-	public DefaultListModel actualizar(DefaultListModel pLm) {
+	public Iterator<String> actualizar() {
 		Iterator<Disco> it = this.obIterator();
+		ArrayList<String> sr = new ArrayList<String>();
 		Disco disco = null;
 		while(it.hasNext()) {
 			disco = it.next();
-			pLm.addElement(disco.getNombreDisco());
+			sr.add(disco.getNombreDisco());
 		}
-		return pLm;
+		return sr.iterator();
 	}
 	
 	

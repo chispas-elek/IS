@@ -20,13 +20,6 @@ public class Filtrar extends UnaryFunctor<Artista, Boolean>{
 		}
 		
 		public Boolean fn(Artista ar) {
-			Boolean value = true;
-			int i = 0;
-			while(i <= ar.getNombre().length() && i <= getLista().length() && value) {
-				if(ar.getNombre().charAt(i) != getLista().charAt(i)) {
-				value = false;
-				}
-			}	
-			return value;
+			return ar.contiene(lista);
 		}
 }

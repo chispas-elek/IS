@@ -17,9 +17,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+
+import packComponentes.EventoMusical;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.Iterator;
 
 public class VDEventos extends JDialog {
 
@@ -28,7 +32,7 @@ public class VDEventos extends JDialog {
 	private DefaultListModel lm = new DefaultListModel();
 	private VEventoC vEventoC = new VEventoC();
 	private JList list;
-	private JButton btnEliminarEvento;
+	private JButton btnEliminarEvento, btnComprarEntrada, btnComprarEntradavip;
 	private JTextField textField_1;
 	private JTextField tNombe;
 	private JTextField tLugar;
@@ -36,6 +40,8 @@ public class VDEventos extends JDialog {
 	private JTextField tVip;
 	private JTextField tGen;
 	private DefaultListModel lmP = new DefaultListModel();
+	private JTextField tEntradas;
+	private JTextField tBeneficios;
 
 	/**
 	 * Launch the application.
@@ -72,6 +78,9 @@ public class VDEventos extends JDialog {
 						public void valueChanged(ListSelectionEvent arg0) {
 							btnEliminarEvento.setEnabled(true);
 							try {
+								controlEntradas();
+								btnComprarEntrada.setEnabled(true);
+								btnComprarEntradavip.setEnabled(true);
 							String option = packMae.CatalogoEventoMusical.getCatalogoEventoMusical().buscarEvento((String)list.getSelectedValue()).getClass().toString();
 							switch(option) {
 								case "class packComponentes.Concierto":
@@ -105,9 +114,9 @@ public class VDEventos extends JDialog {
 			contentPanel.add(panel_1, BorderLayout.CENTER);
 			GridBagLayout gbl_panel_1 = new GridBagLayout();
 			gbl_panel_1.columnWidths = new int[]{201, 109, 114, 0};
-			gbl_panel_1.rowHeights = new int[]{19, 0, 0, 0, 0, 0, 0, 0};
+			gbl_panel_1.rowHeights = new int[]{19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 			gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
-			gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+			gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 			panel_1.setLayout(gbl_panel_1);
 			{
 				JLabel lblTipoDeEvento = new JLabel("Tipo de Evento:");
@@ -229,6 +238,76 @@ public class VDEventos extends JDialog {
 				panel_1.add(tGen, gbc_tGen);
 				tGen.setColumns(10);
 			}
+			{
+				JLabel lblEntradasDisponibles = new JLabel("Entradas disponibles");
+				GridBagConstraints gbc_lblEntradasDisponibles = new GridBagConstraints();
+				gbc_lblEntradasDisponibles.anchor = GridBagConstraints.EAST;
+				gbc_lblEntradasDisponibles.insets = new Insets(0, 0, 5, 5);
+				gbc_lblEntradasDisponibles.gridx = 1;
+				gbc_lblEntradasDisponibles.gridy = 6;
+				panel_1.add(lblEntradasDisponibles, gbc_lblEntradasDisponibles);
+			}
+			{
+				tEntradas = new JTextField();
+				tEntradas.setEditable(false);
+				GridBagConstraints gbc_tEntradas = new GridBagConstraints();
+				gbc_tEntradas.insets = new Insets(0, 0, 5, 0);
+				gbc_tEntradas.fill = GridBagConstraints.HORIZONTAL;
+				gbc_tEntradas.gridx = 2;
+				gbc_tEntradas.gridy = 6;
+				panel_1.add(tEntradas, gbc_tEntradas);
+				tEntradas.setColumns(10);
+			}
+			{
+				btnComprarEntrada = new JButton("Comprar entrada");
+				btnComprarEntrada.setEnabled(false);
+				btnComprarEntrada.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						packMae.CatalogoEventoMusical.getCatalogoEventoMusical().buscarEvento((String)list.getSelectedValue()).venderEntradaNormal();
+						controlEntradas();
+					}
+				});
+				GridBagConstraints gbc_btnComprarEntrada = new GridBagConstraints();
+				gbc_btnComprarEntrada.insets = new Insets(0, 0, 5, 5);
+				gbc_btnComprarEntrada.gridx = 1;
+				gbc_btnComprarEntrada.gridy = 7;
+				panel_1.add(btnComprarEntrada, gbc_btnComprarEntrada);
+			}
+			{
+				btnComprarEntradavip = new JButton("Comprar entradaVIP");
+				btnComprarEntradavip.setEnabled(false);
+				btnComprarEntradavip.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						packMae.CatalogoEventoMusical.getCatalogoEventoMusical().buscarEvento((String)list.getSelectedValue()).venderEntradaVip();
+						controlEntradas();
+					}
+				});
+				GridBagConstraints gbc_btnComprarEntradavip = new GridBagConstraints();
+				gbc_btnComprarEntradavip.insets = new Insets(0, 0, 5, 0);
+				gbc_btnComprarEntradavip.gridx = 2;
+				gbc_btnComprarEntradavip.gridy = 7;
+				panel_1.add(btnComprarEntradavip, gbc_btnComprarEntradavip);
+			}
+			{
+				JLabel lblBeneficios = new JLabel("Beneficios");
+				GridBagConstraints gbc_lblBeneficios = new GridBagConstraints();
+				gbc_lblBeneficios.anchor = GridBagConstraints.EAST;
+				gbc_lblBeneficios.insets = new Insets(0, 0, 5, 5);
+				gbc_lblBeneficios.gridx = 1;
+				gbc_lblBeneficios.gridy = 8;
+				panel_1.add(lblBeneficios, gbc_lblBeneficios);
+			}
+			{
+				tBeneficios = new JTextField();
+				tBeneficios.setEditable(false);
+				GridBagConstraints gbc_tBeneficios = new GridBagConstraints();
+				gbc_tBeneficios.insets = new Insets(0, 0, 5, 0);
+				gbc_tBeneficios.fill = GridBagConstraints.HORIZONTAL;
+				gbc_tBeneficios.gridx = 2;
+				gbc_tBeneficios.gridy = 8;
+				panel_1.add(tBeneficios, gbc_tBeneficios);
+				tBeneficios.setColumns(10);
+			}
 		}
 		{
 			rellenar();
@@ -250,7 +329,8 @@ public class VDEventos extends JDialog {
 						rellenar();
 						btnEliminarEvento.setEnabled(false);
 						reset();
-						
+						btnComprarEntrada.setEnabled(false);
+						btnComprarEntradavip.setEnabled(false);
 					}
 				});
 				{
@@ -269,7 +349,8 @@ public class VDEventos extends JDialog {
 				JButton btnAadirEvento = new JButton("Añadir Evento");
 				btnAadirEvento.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						reset();
+						btnComprarEntrada.setEnabled(false);
+						btnComprarEntradavip.setEnabled(false);
 						vEventoC.setVisible(true);
 						rellenar();
 					}
@@ -297,11 +378,18 @@ public class VDEventos extends JDialog {
 	
 	private void rellenar() {
 		lm.removeAllElements();
-		packMae.CatalogoEventoMusical.getCatalogoEventoMusical().rellenar(lm);
+		Iterator<String> it = packMae.CatalogoEventoMusical.getCatalogoEventoMusical().rellenar();
+		while(it.hasNext()) {
+			lm.addElement(it.next());
+		}
 	}
 	
 	private void actualizar() {
-		packMae.CatalogoEventoMusical.getCatalogoEventoMusical().actualizar(lm, textField.getText());
+		lm.removeAllElements();
+		Iterator<String> it = packMae.CatalogoEventoMusical.getCatalogoEventoMusical().actualizar(textField.getText());
+		while(it.hasNext()) {
+			lm.addElement(it.next());
+		}
 	}
 	
 	private void reset() {
@@ -311,6 +399,16 @@ public class VDEventos extends JDialog {
 		tEntrada.setText("");
 		tVip.setText("");
 		tGen.setText("");
+	}
+	
+	private void controlEntradas() {
+		EventoMusical ev = packMae.CatalogoEventoMusical.getCatalogoEventoMusical().buscarEvento((String)list.getSelectedValue());
+		tEntradas.setText(Integer.toString(ev.getMaxEntradas() - ev.cuantasTiene()));
+		tBeneficios.setText(Integer.toString(ev.obtenerBeneficio()));
+		if(Integer.parseInt(tEntradas.getText()) == 0) {
+			btnComprarEntrada.setEnabled(false);
+			btnComprarEntradavip.setEnabled(false);
+		}
 	}
 
 }

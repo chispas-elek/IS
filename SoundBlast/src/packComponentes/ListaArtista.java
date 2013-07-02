@@ -31,7 +31,7 @@ public class ListaArtista {
 		Iterator<Artista> it = this.obIterator();
 		while(it.hasNext() && !found) {
 			pAr = it.next();
-			if(pAr.getTipo() == "solista") {
+			if(pAr.getTipo() == Tipo.SOLISTA) {
 				found = true;
 			}
 		}
@@ -41,7 +41,7 @@ public class ListaArtista {
 		return pAr;
 	}
 	
-	public void addArtista(String pNombre, String pTipo) {
+	public void addArtista(String pNombre, Tipo pTipo) {
 		this.listaArtistas.add(new Artista(pNombre, pTipo));
 	}
 	
@@ -86,24 +86,16 @@ public class ListaArtista {
 		return this.listaArtistas;
 	}
 	
-	public DefaultListModel actualizar(DefaultListModel pLm) {
-		Iterator<Artista> it = this.obIterator();
-		Artista ar = null;
-		while(it.hasNext()) {
-			ar = it.next();
-			pLm.addElement(ar.getNombre());
-		}
-		return pLm;
-	}
 	
-	public DefaultListModel rellenar(DefaultListModel pLm) {
+	public Iterator<String> rellenar() {
 		Iterator<Artista> it = obIterator();
+		ArrayList<String> sr = new ArrayList<String>();
 		Artista ar = null;
 		while(it.hasNext()) {
 			ar = it.next();
-			pLm.addElement(ar.getNombre());
+			sr.add(ar.getNombre());
 		}
-		return pLm;
+		return sr.iterator();
 	}
 	
 }

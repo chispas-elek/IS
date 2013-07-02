@@ -4,9 +4,9 @@ public class Entrada {
 	
 	//Variables
 	private int idEntrada;
-	private float precio;
+	private int precio;
 	
-	public Entrada(float pPrecio) {
+	public Entrada(int pPrecio) {
 		this.idEntrada = (int)System.currentTimeMillis();
 		this.precio = pPrecio;
 	}
@@ -15,7 +15,7 @@ public class Entrada {
 		return this.idEntrada;
 	}
 	
-	public float getPrecio() {
+	public int getPrecio() {
 		return this.precio;
 	}
 }

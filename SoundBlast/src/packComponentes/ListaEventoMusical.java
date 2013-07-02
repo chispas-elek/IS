@@ -96,8 +96,8 @@ public class ListaEventoMusical {
 		return lista;
 	}
 	
-	public float obtenerBeneficio() {
-		float benef = 0;
+	public int obtenerBeneficio() {
+		int benef = 0;
 		EventoMusical evento;
 		Iterator<EventoMusical> it = this.obIterator();
 		while(it.hasNext()) {
@@ -107,7 +107,7 @@ public class ListaEventoMusical {
 		return benef;
 	}
 	
-	public float obtenerBeneficio(EventoMusical pEvento) {
+	public int obtenerBeneficio(EventoMusical pEvento) {
 		return this.buscarEvento(pEvento.getId()).obtenerBeneficio();
 	}
 	
@@ -119,11 +119,11 @@ public class ListaEventoMusical {
 		return this.buscarEvento(pEvento.getId()).venderEntradaVip();
 	}
 	
-	public float obtenerPrecioEntrada(EventoMusical pEvento) {
+	public int obtenerPrecioEntrada(EventoMusical pEvento) {
 		return this.buscarEvento(pEvento.getId()).getPrecioEntrada();
 	}
 	
-	public float obtenerPrecioEntradaVip(EventoMusical pEvento) {
+	public int obtenerPrecioEntradaVip(EventoMusical pEvento) {
 		return this.buscarEvento(pEvento.getId()).getPrecioEntradaVip();
 	}
 	
@@ -140,24 +140,26 @@ public class ListaEventoMusical {
 		return flag;
 	}
 	
-	public void rellenar(DefaultListModel pLm) {
+	public Iterator<String> rellenar() {
 		Iterator<EventoMusical> it = this.obIterator();
-		EventoMusical e = null;
+		ArrayList<String> sr = new ArrayList<String>();
 		while(it.hasNext()) {
-			e = it.next();
-			pLm.addElement(e.getNombre());
+			sr.add(it.next().getNombre());
 		}
+		return sr.iterator();
 	}
 	
-	public void actualizar(DefaultListModel pLm, String pFilter) {
+	public Iterator<String> actualizar(String pFilter) {
 		Iterator<EventoMusical> it = this.obIterator();
+		ArrayList<String> sr = new ArrayList<String>();
 		EventoMusical e = null;
 		while(it.hasNext()) {
 			e = it.next();
 			if(this.buscar(pFilter, e.getNombre())) {
-				pLm.addElement(e.getNombre());
+				sr.add(e.getNombre());
 			}
 		}
+		return sr.iterator();
 	}
 	
 	private boolean buscar(String pFilter, String pComp) {

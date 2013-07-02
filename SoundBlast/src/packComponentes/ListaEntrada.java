@@ -13,7 +13,7 @@ public class ListaEntrada {
 		this.lista = new ArrayList<Entrada>();
 	}
 	
-	public void venderEntrada(float pPrecio) {
+	public void venderEntrada(int pPrecio) {
 		Entrada entrada = new Entrada(pPrecio);
 		this.lista.add(entrada);
 	}
@@ -50,8 +50,8 @@ public class ListaEntrada {
 		return found;
 	}
 	
-	public float calcularBeneficio() {
-		float benef = 0;
+	public int calcularBeneficio() {
+		int benef = 0;
 		Entrada entrada;
 		Iterator<Entrada> it = this.obIterator();
 		while(it.hasNext()) {

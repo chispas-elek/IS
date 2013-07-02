@@ -19,10 +19,12 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 
+import packComponentes.Disco;
 import packComponentes.Grupo;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Iterator;
 
 public class VDisco extends JDialog {
 
@@ -96,13 +98,19 @@ public class VDisco extends JDialog {
 					list = new JList(lm);
 					list.addListSelectionListener(new ListSelectionListener() {
 						public void valueChanged(ListSelectionEvent arg0) {
-							tTitulo.setText(packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo(lGrupo.getText()).buscarDisco(label.getText()).getCanciones().buscarCancion((String)list.getSelectedValue()).getTitulo());
-							tNum.setText(Integer.toString(packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo(lGrupo.getText()).buscarDisco(label.getText()).getCanciones().buscarCancion((String)list.getSelectedValue()).getNumeroPistas()));
-							tComp.setText(packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo(lGrupo.getText()).buscarDisco(label.getText()).getCanciones().buscarCancion((String)list.getSelectedValue()).getCompositor());
-							tGen.setText(packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo(lGrupo.getText()).buscarDisco(label.getText()).getCanciones().buscarCancion((String)list.getSelectedValue()).getGen().toString());
-							tPunt.setText(Integer.toString(packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo(lGrupo.getText()).buscarDisco(label.getText()).getCanciones().buscarCancion((String)list.getSelectedValue()).getPuntuacion()));
-							tDur.setText(Integer.toString(packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo(lGrupo.getText()).buscarDisco(label.getText()).getCanciones().buscarCancion((String)list.getSelectedValue()).getDuracion()));
+							try {
+							Disco cd = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo(lGrupo.getText()).buscarDisco(label.getText());
+							tTitulo.setText(cd.getCanciones().buscarCancion((String)list.getSelectedValue()).getTitulo());
+							tNum.setText(Integer.toString(cd.getCanciones().buscarCancion((String)list.getSelectedValue()).getNumeroPistas()));
+							tComp.setText(cd.getCanciones().buscarCancion((String)list.getSelectedValue()).getCompositor());
+							tGen.setText(cd.getCanciones().buscarCancion((String)list.getSelectedValue()).getGen().toString());
+							tPunt.setText(Integer.toString(cd.getCanciones().buscarCancion((String)list.getSelectedValue()).getPuntuacion()));
+							tDur.setText(Integer.toString(cd.getCanciones().buscarCancion((String)list.getSelectedValue()).getDuracion()));
 							btnBorrarCancion.setEnabled(true);
+							}
+							catch(NullPointerException e) {
+								System.out.println("Bypass");
+							}
 						}
 					});
 					GridBagConstraints gbc_list = new GridBagConstraints();
@@ -286,7 +294,10 @@ public class VDisco extends JDialog {
 	
 	private void actualizar() {
 		lm.removeAllElements();
-		packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo(lGrupo.getText()).buscarDisco(label.getText()).getCanciones().actualizar(lm);
+		Iterator<String> it = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo(lGrupo.getText()).buscarDisco(label.getText()).getCanciones().actualizar();
+		while(it.hasNext()) {
+			lm.addElement(it.next());
+		}
 	}
 	
 	private void reset() {

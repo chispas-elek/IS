@@ -88,15 +88,26 @@ public class Grupo {
 		this.discografia.addDisco(pNom, pAno, pGen, pDur);
 	}
 	
-	public DefaultListModel actArt(DefaultListModel pLm) {
-		return this.componentes.actualizar(pLm);
+	public Iterator<String> actArt() {
+		return this.componentes.rellenar();
 	}
 	
-	public DefaultListModel actDis(DefaultListModel pLm) {
-		return this.discografia.actualizar(pLm);
+	public Iterator<String> actDis() {
+		return this.discografia.actualizar();
 	}
 	
-	public DefaultListModel actArtAnt(DefaultListModel pLm) {
-		return this.componentesAnteriores.actualizar(pLm);
+	public Iterator<String> actArtAnt() {
+		return this.componentesAnteriores.rellenar();
+	}
+	
+	public boolean contiene(String pFilter) {
+		boolean result = true;
+		int i = 0;
+		while(i <= this.getNombre().length() && i <= pFilter.length() && result) {
+			if(this.getNombre().charAt(i) != pFilter.charAt(i)) {
+			result = false;
+			}
+		}
+		return result;
 	}
 }

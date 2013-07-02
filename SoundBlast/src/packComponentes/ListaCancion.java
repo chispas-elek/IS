@@ -43,13 +43,13 @@ public class ListaCancion {
 		return cancion;
 	}
 	
-	public void actualizar(DefaultListModel pLm) {
+	public Iterator<String> actualizar() {
 		Iterator<Cancion> it = this.obIterator();
-		Cancion c = null;
+		ArrayList<String> sr = new ArrayList<String>();
 		while(it.hasNext()) {
-			c = it.next();
-			pLm.addElement(c.getTitulo());
+			sr.add(it.next().getTitulo());
 		}
+		return sr.iterator();
 	}
 
 }

@@ -109,53 +109,39 @@ public class CatalogoGrupoArtista {
 		this.getGrupo(pGrupo.getNombre()).anadirDisco(pNom, pAno, pGen, pDur);
 	}
 	
-	public DefaultListModel ordenar(DefaultListModel pLm) {
-		DefaultListModel localLm = new DefaultListModel();
-		ArrayList<String> s = new ArrayList<String>();
-		String nom = null;
-		while(!localLm.isEmpty()) {
-			nom = (String)localLm.firstElement();
-			s.add(nom);
-			localLm.addElement(localLm.firstElement());
+	public Iterator<String> ordenar() {
+		ArrayList<String> sr = new ArrayList<String>();
+		Iterator<String> it = Sort.sort(this.listaA.rellenar(), new Ordenar());
+		while(it.hasNext()) {
+			sr.add(it.next());
 		}
-		//Sort
-		ArrayList<String> it = (ArrayList<String>) Sort.sort(s);
-		while(it.iterator().hasNext()) {
-			nom = it.iterator().next();
-			localLm.addElement(nom);
-		}
-		return localLm;
+		return sr.iterator();
 	}
 	
-	public DefaultListModel filtrarArtistas(String pFilter) {
-		DefaultListModel localLm = new DefaultListModel();
+	public Iterator<String> filtrarArtistas(String pFilter) {
+		ArrayList<String> sr = new ArrayList<String>();
 		Iterator<Artista> it = Filter.filter(this.listaA.getArtistas(), new Filtrar(pFilter)).iterator();
-		Artista nom = null;
 		while(it.hasNext()) {
-			nom = it.next();
-			localLm.addElement(nom.getNombre());
+			sr.add(it.next().getNombre());
 		}
-		return localLm;
+		return sr.iterator();
 	}
 	
-	public DefaultListModel filtrarGrupos(String pFilter) {
-		DefaultListModel localLm = new DefaultListModel();
+	public Iterator<String> filtrarGrupos(String pFilter) {
+		ArrayList<String> sr = new ArrayList<String>();
 		Iterator<Grupo> it = Filter.filter(this.lista.getGrupos(), new FiltrarGrupo(pFilter)).iterator();
-		Grupo gr = null;
 		while(it.hasNext()) {
-			gr = it.next();
-			localLm.addElement(gr.getNombre());
+			sr.add(it.next().getNombre());
 		}
-		return localLm;
+		return sr.iterator();
 	}
 	
-	public DefaultListModel rellenar(DefaultListModel pLm) {
-		this.lista.rellenar(pLm);
-		return pLm;
+	public Iterator<String> rellenar() {
+		return this.lista.rellenar();
+		
 	}
 	
-	public DefaultListModel rellenarArtistas(DefaultListModel pLm) {
-		this.listaA.rellenar(pLm);
-		return pLm;
+	public Iterator<String> rellenarArtistas() {
+		return this.listaA.rellenar();
 	}
 }

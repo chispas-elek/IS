@@ -1,5 +1,7 @@
 package packMae;
 
+import java.util.Iterator;
+
 import javax.swing.DefaultListModel;
 
 import packComponentes.Concierto;
@@ -51,11 +53,11 @@ public class CatalogoEventoMusical {
 		return this.lista.buscarFestivalesPorGenero(pGen);
 	}
 	
-	public float obtenerBeneficio(EventoMusical pEvento) {
+	public int obtenerBeneficio(EventoMusical pEvento) {
 		return this.lista.obtenerBeneficio(pEvento);
 	}
 	
-	public float obtenerBeneficio() {
+	public int obtenerBeneficio() {
 		return this.lista.obtenerBeneficio();
 	}
 	
@@ -67,11 +69,11 @@ public class CatalogoEventoMusical {
 		return this.lista.comprarEntradaVip(pEvento);
 	}
 	
-	public float obtenerPrecioEntrada(EventoMusical pEvento) {
+	public int obtenerPrecioEntrada(EventoMusical pEvento) {
 		return this.lista.obtenerPrecioEntrada(pEvento);
 	}
 	
-	public float obtenerPrecioEntradaVip(EventoMusical pEvento) {
+	public int obtenerPrecioEntradaVip(EventoMusical pEvento) {
 		return this.lista.obtenerPrecioEntradaVip(pEvento);
 	}
 	
@@ -83,12 +85,12 @@ public class CatalogoEventoMusical {
 		return this.lista.esta(pId);
 	}
 	
-	public void rellenar(DefaultListModel pLm) {
-		this.lista.rellenar(pLm);
+	public Iterator<String> rellenar() {
+		return this.lista.rellenar();
 	}
 	
-	public void actualizar(DefaultListModel pLm, String pFilter) {
-		this.lista.actualizar(pLm, pFilter);
+	public Iterator<String> actualizar(String pFilter) {
+		return this.lista.actualizar(pFilter);
 	}
 	
 	public void anadirConcierto(Concierto pCon) {

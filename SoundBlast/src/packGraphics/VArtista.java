@@ -3,6 +3,7 @@ package packGraphics;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -15,17 +16,20 @@ import javax.swing.JTextField;
 
 import packComponentes.Artista;
 import packComponentes.Grupo;
+import packComponentes.Tipo;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
 
 public class VArtista extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField tNombre;
-	private JTextField tTipo;
 	private JLabel label, labelN, lblReemplazarA, lblAadirArtistaAl;
 	private JButton btnReemplazar, okButton;
+	private JComboBox comboBox;
+	private DefaultComboBoxModel cbm = new DefaultComboBoxModel(Tipo.values());
 
 	/**
 	 * Launch the application.
@@ -116,13 +120,12 @@ public class VArtista extends JDialog {
 			contentPanel.add(lblTipo, gbc_lblTipo);
 		}
 		{
-			tTipo = new JTextField();
-			GridBagConstraints gbc_tTipo = new GridBagConstraints();
-			gbc_tTipo.fill = GridBagConstraints.HORIZONTAL;
-			gbc_tTipo.gridx = 8;
-			gbc_tTipo.gridy = 3;
-			contentPanel.add(tTipo, gbc_tTipo);
-			tTipo.setColumns(10);
+			comboBox = new JComboBox(cbm);
+			GridBagConstraints gbc_comboBox = new GridBagConstraints();
+			gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+			gbc_comboBox.gridx = 8;
+			gbc_comboBox.gridy = 3;
+			contentPanel.add(comboBox, gbc_comboBox);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -133,7 +136,7 @@ public class VArtista extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						//Añadir el artista al grupo
-						Artista ar = new Artista(tNombre.getText(), tTipo.getText());
+						Artista ar = new Artista(tNombre.getText(), (Tipo)comboBox.getSelectedItem());
 						packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo(label.getText()).anadirIntegrante(ar);
 						dispose();
 					}
@@ -142,7 +145,7 @@ public class VArtista extends JDialog {
 					btnReemplazar = new JButton("Reemplazar");
 					btnReemplazar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
-							Artista ar = new Artista(tNombre.getText(), tTipo.getText());
+							Artista ar = new Artista(tNombre.getText(), (Tipo)comboBox.getSelectedItem());
 							packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().reemplazarIntegrante(ar, packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().getGrupo(label.getText()).buscarComponente(labelN.getText()), label.getText());
 							setVisible(false);
 						}

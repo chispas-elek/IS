@@ -458,7 +458,10 @@ public class VDGrupos extends JDialog {
 	
 	private void actualizar() {
 		lmGrupos.removeAllElements();
-		packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().rellenar(lmGrupos);
+		Iterator<String> it = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().rellenar();
+		while(it.hasNext()) {
+			lmGrupos.addElement(it.next());
+		}
 		
 	}
 	
@@ -466,9 +469,18 @@ public class VDGrupos extends JDialog {
 		lmArtistas.removeAllElements();
 		lmDiscos.removeAllElements();
 		lmAAntiguos.removeAllElements();
-		pGr.actArt(lmArtistas);
-		pGr.actDis(lmDiscos);
-		pGr.actArtAnt(lmAAntiguos);
+		Iterator<String> it = pGr.actArt();
+		while(it.hasNext()) {
+			lmArtistas.addElement(it.next());
+		}
+		Iterator<String> it2 = pGr.actDis();
+		while(it2.hasNext()) {
+			lmDiscos.addElement(it2.next());
+		}
+		Iterator<String> it3 = pGr.actArtAnt();
+		while(it3.hasNext()) {
+			lmAAntiguos.addElement(it3.next());
+		}
 	}
 	
 	private void reset() {

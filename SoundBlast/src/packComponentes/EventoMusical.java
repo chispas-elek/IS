@@ -98,8 +98,12 @@ public abstract class EventoMusical {
 		return sol;
 	}
 	
-	public float obtenerBeneficio() {
+	public int obtenerBeneficio() {
 		return this.listaEntradas.calcularBeneficio();
+	}
+	
+	public int cuantasTiene() {
+		return this.listaEntradas.cuantasTiene();
 	}
 	
 	

@@ -21,13 +21,6 @@ public class FiltrarGrupo extends UnaryFunctor<Grupo, Boolean>{
 		}
 		
 		public Boolean fn(Grupo gr) {
-			Boolean value = true;
-			int i = 0;
-			while(i <= gr.getNombre().length() && i <= getLista().length() && value) {
-				if(gr.getNombre().charAt(i) != getLista().charAt(i)) {
-				value = false;
-				}
-			}	
-			return value;
+			return gr.contiene(lista);
 		}
 }

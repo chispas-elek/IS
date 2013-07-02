@@ -60,7 +60,7 @@ public class ListaGrupo {
 		return this.lista;
 	}
 	
-	public void anadirIntegrante(String pNom, String pTipo, Grupo pGrupo) {
+	public void anadirIntegrante(String pNom, Tipo pTipo, Grupo pGrupo) {
 		Artista pComponente = new Artista(pNom,pTipo);
 		this.getGrupo(pGrupo.getNombre()).anadirIntegrante(pComponente);
 	}
@@ -69,14 +69,15 @@ public class ListaGrupo {
 		this.getGrupo(pGrupo).reemplazarIntegrante(pArtistaV, pArtistaN);
 	}
 	
-	public DefaultListModel rellenar(DefaultListModel pLm) {
+	public Iterator<String> rellenar() {
 		Iterator<Grupo> it = obIterator();
 		Grupo gr = null;
+		ArrayList<String> sr = new ArrayList<String>();
 		while(it.hasNext()) {
 			gr = it.next();
-			pLm.addElement(gr.getNombre());
+			sr.add(gr.getNombre());
 		}
-		return pLm;
+		return sr.iterator();
 	}
 
 }

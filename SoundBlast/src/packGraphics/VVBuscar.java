@@ -2,6 +2,7 @@ package packGraphics;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -94,12 +95,18 @@ public class VVBuscar extends JDialog {
 	
 	public void actualizar() {
 		lm.removeAllElements();
-		lm = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().rellenar(lm);
+		Iterator<String> it = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().rellenar();
+		while(it.hasNext()) {
+			lm.addElement(it.next());
+		}
 	}
 	
 	private void actualizarArtistas() {
 		lm.removeAllElements();
-		lm = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().rellenarArtistas(lm);
+		Iterator<String> it = packMae.CatalogoGrupoArtista.getCatalogoGrupoArtista().rellenarArtistas();
+		while(it.hasNext()) {
+			lm.addElement(it.next());
+		}
 	}
 
 }
