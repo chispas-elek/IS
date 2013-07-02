@@ -56,7 +56,6 @@ public class VVBuscar extends JDialog {
 				cbm.addElement("");
 				cbm.addElement("Artistas");
 				cbm.addElement("Grupos");
-				cbm.addElement("Eventos");
 				panel.add(comboBox);
 			}
 		}

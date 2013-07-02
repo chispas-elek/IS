@@ -1,6 +1,7 @@
 package packComponentes;
 
 import java.util.Date;
+import java.util.Random;
 
 public abstract class EventoMusical {
 	
@@ -13,7 +14,8 @@ public abstract class EventoMusical {
 	private ListaGrupo gruposParticipantes;
 	private ListaEntrada listaEntradas;
 	public EventoMusical(int pMaxEntradas, String pNombre, String pLugar, Date pFecha, Date pHora, int pPrecioEntrada, int pPrecioVip, Genero pGenero, ListaGrupo pGruposParticipantes, ListaEntrada pListaEntradas) {
-		this.id = Integer.parseInt(new Date().toString());
+		Random rnd = new Random();
+		this.id = rnd.nextInt();
 		this.maxEntradas = pMaxEntradas;
 		this.nombre = pNombre;
 		this.lugar = pLugar;
@@ -50,11 +52,11 @@ public abstract class EventoMusical {
 		return this.hora;
 	}
 
-	public float getPrecioEntrada() {
+	public int getPrecioEntrada() {
 		return this.precioEntrada;
 	}
 
-	public float getPrecioEntradaVip() {
+	public int getPrecioEntradaVip() {
 		return this.precioVip;
 	}
 

@@ -17,6 +17,22 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 
+import packComponentes.Concierto;
+import packComponentes.Festival;
+import packComponentes.Genero;
+import packComponentes.Grupo;
+import packComponentes.ListaEntrada;
+import packComponentes.ListaGrupo;
+import packComponentes.RuedaPrensa;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.Date;
+import java.awt.Label;
+import javax.swing.JTextArea;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+
 public class VEventoC extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
@@ -26,10 +42,13 @@ public class VEventoC extends JDialog {
 	private JTextField tPrecioV;
 	private JTextField tAforo;
 	private JTextField tGrupo;
+	private JTextArea textArea;
 	private JList list;
 	private DefaultListModel lm = new DefaultListModel();
-	private JComboBox comboBox;
+	private JComboBox comboBox, comboGenero;
 	private DefaultComboBoxModel cbm = new DefaultComboBoxModel();
+	private DefaultComboBoxModel cGen = new DefaultComboBoxModel(Genero.values());
+	private JLabel lblDescripcion;
 
 	/**
 	 * Launch the application.
@@ -38,15 +57,24 @@ public class VEventoC extends JDialog {
 	 * Create the dialog.
 	 */
 	public VEventoC() {
+		initialize();
+		pack();
+	}
+	
+	private void initialize() {
+		
+		setModal(true);
+		setTitle("SoundBlast-Añadir Evento");
+		
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		getContentPane().add(contentPanel, BorderLayout.WEST);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblNombre = new JLabel("Nombre");
@@ -183,6 +211,12 @@ public class VEventoC extends JDialog {
 		}
 		{
 			JButton btnAadirParticipante = new JButton("Añadir Participante");
+			btnAadirParticipante.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					lm.addElement(tGrupo.getText());
+					tGrupo.setText("");
+				}
+			});
 			GridBagConstraints gbc_btnAadirParticipante = new GridBagConstraints();
 			gbc_btnAadirParticipante.insets = new Insets(0, 0, 5, 5);
 			gbc_btnAadirParticipante.gridx = 1;
@@ -200,21 +234,91 @@ public class VEventoC extends JDialog {
 			tGrupo.setColumns(10);
 		}
 		{
+			JLabel lblGenero = new JLabel("Genero");
+			GridBagConstraints gbc_lblGenero = new GridBagConstraints();
+			gbc_lblGenero.anchor = GridBagConstraints.EAST;
+			gbc_lblGenero.insets = new Insets(0, 0, 5, 5);
+			gbc_lblGenero.gridx = 1;
+			gbc_lblGenero.gridy = 9;
+			contentPanel.add(lblGenero, gbc_lblGenero);
+		}
+		{
+			comboGenero = new JComboBox(cGen);
+			GridBagConstraints gbc_comboGenero = new GridBagConstraints();
+			gbc_comboGenero.insets = new Insets(0, 0, 5, 0);
+			gbc_comboGenero.fill = GridBagConstraints.HORIZONTAL;
+			gbc_comboGenero.gridx = 2;
+			gbc_comboGenero.gridy = 9;
+			contentPanel.add(comboGenero, gbc_comboGenero);
+		}
+		{
+			lblDescripcion = new JLabel("Descripcion");
+			GridBagConstraints gbc_lblDescripcion = new GridBagConstraints();
+			gbc_lblDescripcion.insets = new Insets(0, 0, 0, 5);
+			gbc_lblDescripcion.gridx = 1;
+			gbc_lblDescripcion.gridy = 11;
+			contentPanel.add(lblDescripcion, gbc_lblDescripcion);
+			
+		}
+		{
+			textArea = new JTextArea();
+			GridBagConstraints gbc_textArea = new GridBagConstraints();
+			gbc_textArea.fill = GridBagConstraints.BOTH;
+			gbc_textArea.gridx = 2;
+			gbc_textArea.gridy = 11;
+			contentPanel.add(textArea, gbc_textArea);
+			
+		}
+		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						ListaGrupo pLG = getLista();
+						switch((String)comboBox.getSelectedItem()) {
+							case "Concierto":
+								Concierto pCon = new Concierto(Integer.parseInt(tAforo.getText()), tNombre.getText(), tLugar.getText(), new Date(), new Date(), Integer.parseInt(tPrecio.getText()), Integer.parseInt(tPrecioV.getText()), (Genero)comboGenero.getSelectedItem(), pLG, new ListaEntrada(), Integer.parseInt(tAforo.getText()));
+								packMae.CatalogoEventoMusical.getCatalogoEventoMusical().anadirConcierto(pCon);
+								break;
+							case "Festival":
+								Festival pFes = new Festival(Integer.parseInt(tAforo.getText()), tNombre.getText(), tLugar.getText(), new Date(), new Date(), Integer.parseInt(tPrecio.getText()), Integer.parseInt(tPrecioV.getText()), (Genero)comboGenero.getSelectedItem(), pLG, new ListaEntrada(), Integer.parseInt(tAforo.getText()));
+								packMae.CatalogoEventoMusical.getCatalogoEventoMusical().anadirFestival(pFes);
+								break;
+							default:
+								RuedaPrensa pRP = new RuedaPrensa(tNombre.getText(), tLugar.getText(), new Date(), new Date(), (Genero)comboGenero.getSelectedItem(), pLG, textArea.getText());
+								packMae.CatalogoEventoMusical.getCatalogoEventoMusical().anadirRPrensa(pRP);
+								break;
+						}
+						setVisible(false);
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						setVisible(false);
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+	
+	private ListaGrupo getLista() {
+		ListaGrupo result = new ListaGrupo();
+		while(!lm.isEmpty()) {
+			result.addGrupo((String)lm.firstElement(), "");
+			lm.removeElement(lm.firstElement());
+		}
+		return result;
 	}
 
 }

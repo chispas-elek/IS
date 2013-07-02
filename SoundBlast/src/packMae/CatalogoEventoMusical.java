@@ -2,10 +2,13 @@ package packMae;
 
 import javax.swing.DefaultListModel;
 
+import packComponentes.Concierto;
 import packComponentes.EventoMusical;
+import packComponentes.Festival;
 import packComponentes.Genero;
 import packComponentes.Grupo;
 import packComponentes.ListaEventoMusical;
+import packComponentes.RuedaPrensa;
 
 public class CatalogoEventoMusical {
 	
@@ -84,8 +87,19 @@ public class CatalogoEventoMusical {
 		this.lista.rellenar(pLm);
 	}
 	
-public void actualizar(DefaultListModel pLm, String pFilter) {
+	public void actualizar(DefaultListModel pLm, String pFilter) {
 		this.lista.actualizar(pLm, pFilter);
 	}
+	
+	public void anadirConcierto(Concierto pCon) {
+		this.lista.anadirEvento(pCon);
+	}
+	
+	public void anadirFestival(Festival pFes) {
+		this.lista.anadirEvento(pFes);
+	}
 
+	public void anadirRPrensa(RuedaPrensa pRP) {
+		this.lista.anadirEvento(pRP);
+	}
 }
