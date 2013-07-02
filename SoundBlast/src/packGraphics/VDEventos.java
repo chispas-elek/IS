@@ -20,9 +20,9 @@ public class VDEventos extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
-	private JList list;
 	private DefaultListModel lm = new DefaultListModel();
 	private VEventoC vEventoC = new VEventoC();
+	private JList list;
 
 	/**
 	 * Launch the application.
@@ -52,9 +52,19 @@ public class VDEventos extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
+			JPanel panel = new JPanel();
+			contentPanel.add(panel, BorderLayout.WEST);
+			{
+				list = new JList();
+				panel.add(list);
+			}
+		}
+		{
+			JPanel panel_1 = new JPanel();
+			contentPanel.add(panel_1, BorderLayout.CENTER);
+		}
+		{
 			rellenar();
-			list = new JList(lm);
-			contentPanel.add(list, BorderLayout.CENTER);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -82,7 +92,7 @@ public class VDEventos extends JDialog {
 				buttonPane.add(btnEliminarEvento);
 			}
 			{
-				JButton btnAadirEvento = new JButton("Añadir Concierto");
+				JButton btnAadirEvento = new JButton("Añadir Evento");
 				btnAadirEvento.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						vEventoC.setVisible(true);
