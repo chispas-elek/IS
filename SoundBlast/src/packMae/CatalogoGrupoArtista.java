@@ -96,11 +96,11 @@ public class CatalogoGrupoArtista {
 		return CatalogoEventoMusical.getCatalogoEventoMusical().buscarFestivalesPorGenero(pGenero);
 	}
 	
-	public float obtenerBeneficio() {
+	public int obtenerBeneficio() {
 		return CatalogoEventoMusical.getCatalogoEventoMusical().obtenerBeneficio();
 	}
 	
-	public float obtenerBeneficio(EventoMusical pEvento) {
+	public int obtenerBeneficio(EventoMusical pEvento) {
 		return CatalogoEventoMusical.getCatalogoEventoMusical().obtenerBeneficio(pEvento);
 	}
 	

@@ -163,12 +163,20 @@ public class ListaEventoMusical {
 	}
 	
 	private boolean buscar(String pFilter, String pComp) {
-		boolean result = true;
+		boolean result = false;
 		int i = 0;
+		int j = 0;
 		while(i<= pComp.length() && i <= pFilter.length()) {
-			if(pComp.charAt(i) != pFilter.charAt(i)) {
-				result = false;
+			if(pComp.charAt(i) != pFilter.charAt(j)) {
+				i++;
+				j++;
 			}
+			else {
+				j = 0;
+			}
+		}
+		if(j > pFilter.length()) {
+			result = true;
 		}
 		return result;
 	}

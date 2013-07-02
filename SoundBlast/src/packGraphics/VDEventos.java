@@ -342,6 +342,15 @@ public class VDEventos extends JDialog {
 					});
 					buttonPane.add(btnBuscaar);
 				}
+				{
+					JButton btnRestablecer = new JButton("Restablecer");
+					btnRestablecer.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							rellenar();
+						}
+					});
+					buttonPane.add(btnRestablecer);
+				}
 				btnEliminarEvento.setEnabled(false);
 				buttonPane.add(btnEliminarEvento);
 			}
@@ -353,6 +362,7 @@ public class VDEventos extends JDialog {
 						btnComprarEntradavip.setEnabled(false);
 						vEventoC.setVisible(true);
 						rellenar();
+						reset();
 					}
 				});
 				buttonPane.add(btnAadirEvento);
@@ -393,12 +403,15 @@ public class VDEventos extends JDialog {
 	}
 	
 	private void reset() {
+		textField_1.setText("");
 		textField.setText("");
 		tNombe.setText("");
 		tLugar.setText("");
 		tEntrada.setText("");
 		tVip.setText("");
 		tGen.setText("");
+		tEntradas.setText("");
+		tBeneficios.setText("");
 	}
 	
 	private void controlEntradas() {
