@@ -75,7 +75,7 @@ public class Grupo {
 		}
 		else {
 			componentesAnteriores.addArtista(pViejo);
-			this.eliminarComponente(buscarComponente(pViejo.getNombre()));
+			this.eliminarComponente(pViejo);
 			this.anadirIntegrante(pNuevo);	
 		}
 	}
